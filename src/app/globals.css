@@ -1,2 +1,35 @@
+/* app/globals.css */
 @import "tailwindcss";
-@import "@heroui/styles"; 
+@import "@heroui/styles";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  /* Light Mode - Vivid Prism */
+  --background: #eadef5;
+  --surface: #f5f0fa;
+  --surface-container: #e8dff0;
+  --on-surface: #1f1929;
+  --on-surface-variant: #4d4354;
+  --primary: #842bd2;
+  --primary-container: #ddb7ff;
+  --border: #cfc2d6;
+}
+
+.dark {
+  /* Dark Mode - Vivid Prism */
+  --background: #161020;
+  --surface: #231d2d;
+  --surface-container: #2e2738;
+  --on-surface: #eadef5;
+  --on-surface-variant: #cfc2d6;
+  --primary: #ddb7ff;
+  --primary-container: #b76dff;
+  --border: #4d4354;
+}
+
+body {
+  font-family: var(--font-inter), sans-serif;
+  background-color: var(--background);
+  color: var(--on-surface);
+}

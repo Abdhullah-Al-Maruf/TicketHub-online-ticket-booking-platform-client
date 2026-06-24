@@ -15,12 +15,27 @@ export default function SignInPage() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
+  // Helper function to redirect based on role from session
+  const redirectToDashboard = async () => {
+    // Fetch the session to get the user role
+    const { data: sessionData } = await authClient.getSession();
+    const userRole = sessionData?.user?.role;
+
+    if (userRole === "vendor") {
+      router.push("/vendor/dashboard");
+    } else if (userRole === "admin") {
+      router.push("/admin/dashboard");
+    } else {
+      router.push("/dashboard"); // or "/" for regular users
+    }
+  };
+
   const onSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
 
     try {
-      const { data, error } = await authClient.signIn.email({
+      const { error } = await authClient.signIn.email({
         email,
         password,
       });
@@ -34,14 +49,8 @@ export default function SignInPage() {
         autoClose: 2000,
       });
 
-      // Redirect based on role
-      if (data?.user?.role === "vendor") {
-        router.push("/vendor/dashboard");
-      } else if (data?.user?.role === "admin") {
-        router.push("/admin/dashboard");
-      } else {
-        router.push("/user/dashboard");
-      }
+      // Redirect based on role from session
+      await redirectToDashboard();
     } catch (err) {
       console.error(err);
       toast.error(err.message || "Invalid email or password", {
@@ -57,6 +66,7 @@ export default function SignInPage() {
     try {
       await authClient.signIn.social({
         provider: "google",
+        callbackURL: "/", // Will be handled by middleware
       });
     } catch (error) {
       console.error("Google Auth Error:", error);
@@ -73,7 +83,7 @@ export default function SignInPage() {
     setPassword(demoPassword);
 
     try {
-      const { data, error } = await authClient.signIn.email({
+      const { error } = await authClient.signIn.email({
         email: demoEmail,
         password: demoPassword,
       });
@@ -87,14 +97,8 @@ export default function SignInPage() {
         autoClose: 2000,
       });
 
-      // Redirect based on role
-      if (data?.user?.role === "vendor") {
-        router.push("/vendor/dashboard");
-      } else if (data?.user?.role === "admin") {
-        router.push("/admin/dashboard");
-      } else {
-        router.push("/user/dashboard");
-      }
+      // Redirect based on role from session
+      await redirectToDashboard();
     } catch (err) {
       console.error(err);
       toast.error(err.message || "Demo login failed", {
@@ -108,9 +112,10 @@ export default function SignInPage() {
 
   return (
     <div >
-      <div className="w-full max-w-[480px]">
+      <div className="w-full max-w-[580px]">
         
- 
+        
+
         {/* Main Form Card */}
         <div className="bg-[#231d2d] border border-[#4d4354] rounded-xl p-8 sm:p-10 shadow-2xl shadow-black/50">
           
