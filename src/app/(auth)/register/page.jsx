@@ -99,7 +99,7 @@ export default function SignUpPage() {
         name,
         role: role,
       });
-      
+
       if (error) {
         toast.error(error.message || "Signup failed", {
           position: "top-center",
@@ -112,7 +112,7 @@ export default function SignUpPage() {
         position: "top-center",
         autoClose: 2000,
       });
-      
+
       await authClient.signOut();
       router.push("/login");
     } catch (err) {
@@ -139,212 +139,186 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center ">
-      <div className="w-full max-w-[480px]">
-        
-      
+    <>
+      {/* Header Section */}
+      <div className="text-center mb-8">
+        <h2 className="text-3xl font-bold text-[#eadef5] tracking-tight">
+          Create your account
+        </h2>
+        <p className="text-[#cfc2d6] mt-3 text-sm">
+          Join the next generation of travel
+        </p>
+      </div>
 
-        {/* Main Form Card */}
-        <div >
-          
-          {/* Header Section */}
-          <div className="text-center mb-2">
-            
-            <h2 className="text-3xl font-bold text-[#eadef5] tracking-tight">
-              Create your account
-            </h2>
-            <p className="text-[#cfc2d6] mt-3 text-sm">
-              Join the next generation of travel
-            </p>
+      {/* Form */}
+      <form onSubmit={onSubmit} className="space-y-5">
+        {/* Name Field */}
+        <div className="space-y-1.5">
+          <Label className="text-[#eadef5] font-medium text-sm">
+            Name <span className="text-[#f3aeff]">*</span>
+          </Label>
+          <Input
+            name="name"
+            placeholder="Enter your full name"
+            required
+            className="w-full h-11 bg-[#161020]/60 border border-[#4d4354] rounded-lg text-[#eadef5] placeholder:text-[#988d9f] focus:border-[#b76dff] focus:outline-none px-3"
+          />
+        </div>
+
+        {/* Email Field */}
+        <div className="space-y-1.5">
+          <Label className="text-[#eadef5] font-medium text-sm">
+            Email <span className="text-[#f3aeff]">*</span>
+          </Label>
+          <Input
+            name="email"
+            type="email"
+            placeholder="name@example.com"
+            required
+            className="w-full h-11 bg-[#161020]/60 border border-[#4d4354] rounded-lg text-[#eadef5] placeholder:text-[#988d9f] focus:border-[#b76dff] focus:outline-none px-3"
+          />
+        </div>
+
+        {/* Password Fields Row */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="space-y-1.5">
+            <Label className="text-[#eadef5] font-medium text-sm">
+              Password <span className="text-[#f3aeff]">*</span>
+            </Label>
+            <div className="relative">
+              <Input
+                name="password"
+                type={isVisible ? "text" : "password"}
+                placeholder="••••••••"
+                required
+                value={passwordValue}
+                onChange={(e) => setPasswordValue(e.target.value)}
+                className="w-full h-11 bg-[#161020]/60 border border-[#4d4354] rounded-lg text-[#eadef5] placeholder:text-[#988d9f] focus:border-[#b76dff] focus:outline-none px-3 pr-10"
+              />
+              <button
+                type="button"
+                onClick={() => setIsVisible(!isVisible)}
+                className="absolute cursor-pointer right-3 top-1/2 -translate-y-1/2 text-[#988d9f] hover:text-[#ddb7ff] transition-colors"
+              >
+                {isVisible ? (
+                  <Icon icon="heroicons:eye-slash" className="w-5 h-5" />
+                ) : (
+                  <Icon icon="heroicons:eye" className="w-5 h-5" />
+                )}
+              </button>
+            </div>
           </div>
 
-          {/* Form */}
-          <form onSubmit={onSubmit} className="space-y-5">
-            
-            {/* Name Field */}
-            <div className="space-y-1.5">
-              <Label className="text-[#eadef5] font-medium text-sm">
-                Name <span className="text-[#f3aeff]">*</span>
-              </Label>
+          <div className="space-y-1.5">
+            <Label className="text-[#eadef5] font-medium text-sm">
+              Confirm <span className="text-[#f3aeff]">*</span>
+            </Label>
+            <div className="relative">
               <Input
-                name="name"
-                placeholder="Enter your full name"
+                name="confirmPassword"
+                type={isConfirmVisible ? "text" : "password"}
+                placeholder="••••••••"
                 required
-                className="w-full h-11 bg-[#1f1929] border border-[#4d4354] rounded-lg text-[#eadef5] placeholder:text-[#988d9f] focus:border-[#b76dff] focus:outline-none px-3"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                className="w-full h-11 bg-[#161020]/60 border border-[#4d4354] rounded-lg text-[#eadef5] placeholder:text-[#988d9f] focus:border-[#b76dff] focus:outline-none px-3 pr-10"
               />
+              <button
+                type="button"
+                onClick={() => setIsConfirmVisible(!isConfirmVisible)}
+                className="absolute cursor-pointer right-3 top-1/2 -translate-y-1/2 text-[#988d9f] hover:text-[#ddb7ff] transition-colors"
+              >
+                {isConfirmVisible ? (
+                  <Icon icon="heroicons:eye-slash" className="w-5 h-5" />
+                ) : (
+                  <Icon icon="heroicons:eye" className="w-5 h-5" />
+                )}
+              </button>
             </div>
-
-            {/* Email Field */}
-            <div className="space-y-1.5">
-              <Label className="text-[#eadef5] font-medium text-sm">
-                Email <span className="text-[#f3aeff]">*</span>
-              </Label>
-              <Input
-                name="email"
-                type="email"
-                placeholder="name@example.com"
-                required
-                className="w-full h-11 bg-[#1f1929] border border-[#4d4354] rounded-lg text-[#eadef5] placeholder:text-[#988d9f] focus:border-[#b76dff] focus:outline-none px-3"
-              />
-            </div>
-
-            {/* Password Fields Row */}
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-1.5">
-                <Label className="text-[#eadef5] font-medium text-sm">
-                  Password <span className="text-[#f3aeff]">*</span>
-                </Label>
-                <div className="relative">
-                  <Input
-                    name="password"
-                    type={isVisible ? "text" : "password"}
-                    placeholder="••••••••"
-                    required
-                    value={passwordValue}
-                    onChange={(e) => setPasswordValue(e.target.value)}
-                    className="w-full h-11 bg-[#1f1929] border border-[#4d4354] rounded-lg text-[#eadef5] placeholder:text-[#988d9f] focus:border-[#b76dff] focus:outline-none px-3"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setIsVisible(!isVisible)}
-                    className="absolute cursor-pointer right-3 top-1/2 -translate-y-1/2 text-[#988d9f] hover:text-[#ddb7ff] transition-colors"
-                  >
-                    {isVisible ? (
-                      <Icon icon="heroicons:eye-slash" className="w-5 h-5" />
-                    ) : (
-                      <Icon icon="heroicons:eye" className="w-5 h-5" />
-                    )}
-                  </button>
-                </div>
-              </div>
-
-              <div className="space-y-1.5">
-                <Label className="text-[#eadef5] font-medium text-sm">
-                  Confirm <span className="text-[#f3aeff]">*</span>
-                </Label>
-                <div className="relative">
-                  <Input
-                    name="confirmPassword"
-                    type={isConfirmVisible ? "text" : "password"}
-                    placeholder="••••••••"
-                    required
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="w-full h-11 bg-[#1f1929] border border-[#4d4354] rounded-lg text-[#eadef5] placeholder:text-[#988d9f] focus:border-[#b76dff] focus:outline-none px-3"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setIsConfirmVisible(!isConfirmVisible)}
-                    className="absolute cursor-pointer
-                     right-3 top-1/2 -translate-y-1/2 text-[#988d9f] hover:text-[#ddb7ff] transition-colors"
-                  >
-                    {isConfirmVisible ? (
-                      <Icon icon="heroicons:eye-slash" className="w-5 h-5" />
-                    ) : (
-                      <Icon icon="heroicons:eye" className="w-5 h-5" />
-                    )}
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            {/* Password Validation List */}
-            <div className="space-y-2 bg-[#1f1929] p-3 rounded-lg border border-[#4d4354]">
-              <ValidationItem
-                isValid={hasMinLength}
-                text="6+ characters"
-              />
-              <ValidationItem
-                isValid={hasNumber}
-                text="At least one number"
-              />
-              <ValidationItem
-                isValid={hasUppercase}
-                text="One uppercase letter"
-              />
-              <ValidationItem
-                isValid={hasLowercase}
-                text="One lowercase letter"
-              />
-              <ValidationItem
-                isValid={hasSpecialChar}
-                text="One special character (!@#$)"
-              />
-            </div>
-
-            {/* Role Selection */}
-            <div className="space-y-2">
-              <Label className="text-[#eadef5] font-medium text-sm">
-                I am a...
-              </Label>
-              <div className="flex rounded-lg overflow-hidden border border-[#4d4354] bg-[#1f1929]">
-                <button
-                  type="button"
-                  onClick={() => setRole("user")}
-                  className={`flex-1 py-2.5 px-4 text-sm font-medium transition-all duration-200 ${
-                    role === "user"
-                      ? "bg-[#b76dff] text-[#161020]"
-                      : "bg-transparent text-[#cfc2d6] hover:bg-[#2e2738]"
-                  }`}
-                >
-                  User
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setRole("vendor")}
-                  className={`flex-1 py-2.5 px-4 text-sm font-medium transition-all duration-200 ${
-                    role === "vendor"
-                      ? "bg-[#b76dff] text-[#161020]"
-                      : "bg-transparent text-[#cfc2d6] hover:bg-[#2e2738]"
-                  }`}
-                >
-                  Vendor
-                </button>
-              </div>
-            </div>
-
-            {/* Submit Button */}
-            <Button
-              type="submit"
-              disabled={!isPasswordValid || !doPasswordsMatch}
-              className="w-full h-11 bg-[#b76dff] cursor-pointer text-[#161020] font-semibold rounded-lg hover:brightness-110 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed mt-2"
-            >
-              Create Account
-            </Button>
-          </form>
-
-          {/* Divider */}
-          <div className="my-6 flex items-center w-full">
-            <hr className="flex-grow border-t border-[#4d4354]" />
-            <span className="px-4 text-xs font-semibold text-[#988d9f] uppercase tracking-wider">
-              OR
-            </span>
-            <hr className="flex-grow border-t border-[#4d4354]" />
-          </div>
-
-          {/* Google Button */}
-          <Button
-            onClick={handleGoogle}
-            className="w-full h-11 rounded-full cursor-pointer bg-[#f0dbff] text-[#161020] font-medium hover:bg-[#eadef5] transition-all duration-200 shadow-sm flex items-center justify-center gap-2"
-          >
-            <Icon icon="devicon:google" className="text-lg" />
-            Continue with Google
-          </Button>
-
-          {/* Login Link */}
-          <div className="text-center mt-6 text-sm">
-            <span className="text-[#cfc2d6]">
-              Already have an account?
-            </span>
-            <Link
-              href="/login"
-              className="font-semibold text-[#ddb7ff] hover:text-[#f3aeff] transition-colors ml-1"
-            >
-              Log In
-            </Link>
           </div>
         </div>
+
+        {/* Password Validation List */}
+        <div className="space-y-2 bg-[#161020]/60 p-4 rounded-lg border border-[#4d4354]">
+          <ValidationItem isValid={hasMinLength} text="6+ characters" />
+          <ValidationItem isValid={hasNumber} text="At least one number" />
+          <ValidationItem isValid={hasUppercase} text="One uppercase letter" />
+          <ValidationItem isValid={hasLowercase} text="One lowercase letter" />
+          <ValidationItem
+            isValid={hasSpecialChar}
+            text="One special character (!@#$)"
+          />
+        </div>
+
+        {/* Role Selection */}
+        <div className="space-y-2">
+          <Label className="text-[#eadef5] font-medium text-sm">
+            I am a...
+          </Label>
+          <div className="flex rounded-lg overflow-hidden border border-[#4d4354] bg-[#161020]/60">
+            <button
+              type="button"
+              onClick={() => setRole("user")}
+              className={`flex-1 py-2.5 px-4 text-sm font-medium transition-all duration-200 ${
+                role === "user"
+                  ? "bg-[#b76dff] text-[#161020]"
+                  : "bg-transparent text-[#cfc2d6] hover:bg-[#2e2738]"
+              }`}
+            >
+              User
+            </button>
+            <button
+              type="button"
+              onClick={() => setRole("vendor")}
+              className={`flex-1 py-2.5 px-4 text-sm font-medium transition-all duration-200 ${
+                role === "vendor"
+                  ? "bg-[#b76dff] text-[#161020]"
+                  : "bg-transparent text-[#cfc2d6] hover:bg-[#2e2738]"
+              }`}
+            >
+              Vendor
+            </button>
+          </div>
+        </div>
+
+        {/* Submit Button */}
+        <Button
+          type="submit"
+          disabled={!isPasswordValid || !doPasswordsMatch}
+          className="w-full h-11 bg-[#b76dff] cursor-pointer text-[#161020] font-semibold rounded-lg hover:brightness-110 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed mt-2"
+        >
+          Create Account
+        </Button>
+      </form>
+
+      {/* Divider */}
+      <div className="my-6 flex items-center w-full">
+        <hr className="flex-grow border-t border-[#4d4354]" />
+        <span className="px-4 text-xs font-semibold text-[#988d9f] uppercase tracking-wider">
+          OR
+        </span>
+        <hr className="flex-grow border-t border-[#4d4354]" />
       </div>
-    </div>
+
+      {/* Google Button */}
+      <Button
+        onClick={handleGoogle}
+        className="w-full h-11 rounded-full cursor-pointer bg-[#f0dbff] text-[#161020] font-medium hover:bg-[#eadef5] transition-all duration-200 shadow-sm flex items-center justify-center gap-2"
+      >
+        <Icon icon="devicon:google" className="text-lg" />
+        Continue with Google
+      </Button>
+
+      {/* Login Link */}
+      <div className="text-center mt-6 text-sm">
+        <span className="text-[#cfc2d6]">Already have an account?</span>
+        <Link
+          href="/login"
+          className="font-semibold text-[#ddb7ff] hover:text-[#f3aeff] transition-colors ml-1"
+        >
+          Log In
+        </Link>
+      </div>
+    </>
   );
 }
