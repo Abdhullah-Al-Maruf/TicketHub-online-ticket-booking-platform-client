@@ -14,8 +14,8 @@ const ValidationItem = ({ isValid, text }) => (
     <div
       className={`w-4 h-4 rounded-full border flex items-center justify-center transition-all duration-200 ${
         isValid
-          ? "bg-[#00d4aa] border-[#00d4aa] text-[#161020]"
-          : "border-[#4d4354] bg-transparent"
+          ? "bg-[#00d4aa] border-[#00d4aa] text-[var(--on-primary)]"
+          : "border-[var(--outline-variant)] bg-transparent"
       }`}
     >
       {isValid && (
@@ -35,7 +35,7 @@ const ValidationItem = ({ isValid, text }) => (
     </div>
     <span
       className={`text-sm transition-colors duration-200 ${
-        isValid ? "text-[#00d4aa] font-medium" : "text-[#988d9f]"
+        isValid ? "text-[#00d4aa] font-medium" : "text-[var(--outline)]"
       }`}
     >
       {text}
@@ -142,10 +142,10 @@ export default function SignUpPage() {
     <>
       {/* Header Section */}
       <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-[#eadef5] tracking-tight">
+        <h2 className="text-3xl font-bold text-[var(--on-surface)] tracking-tight">
           Create your account
         </h2>
-        <p className="text-[#cfc2d6] mt-3 text-sm">
+        <p className="text-[var(--on-surface-variant)] mt-3 text-sm">
           Join the next generation of travel
         </p>
       </div>
@@ -154,36 +154,44 @@ export default function SignUpPage() {
       <form onSubmit={onSubmit} className="space-y-5">
         {/* Name Field */}
         <div className="space-y-1.5">
-          <Label className="text-[#eadef5] font-medium text-sm">
-            Name <span className="text-[#f3aeff]">*</span>
+          <Label className="text-[var(--on-surface)] font-medium text-sm">
+            Name <span className="text-[var(--tertiary)]">*</span>
           </Label>
           <Input
             name="name"
             placeholder="Enter your full name"
             required
-            className="w-full h-11 bg-[#161020]/60 border border-[#4d4354] rounded-lg text-[#eadef5] placeholder:text-[#988d9f] focus:border-[#b76dff] focus:outline-none px-3"
+            className='w-full h-11 rounded-lg bg-[var(--surface-container-low)] border border-[var(--outline-variant)] hover:border-[var(--primary)] focus-within:border-[var(--primary)] focus-within:ring-2 focus-within:ring-[var(--primary)]/20 text-[var(--on-surface)] placeholder:text-[var(--outline)] px-3'
+            classNames={{
+              input: " text-[var(--on-surface)] placeholder:text-[var(--outline)] px-3",
+              inputWrapper: " bg-[var(--surface-container-low)] border border-[var(--outline-variant)] hover:border-[var(--primary)] focus-within:border-[var(--primary)] focus-within:ring-2 focus-within:ring-[var(--primary)]/20  h-11 rounded-lg shadow-none",
+            }}
           />
         </div>
 
         {/* Email Field */}
         <div className="space-y-1.5">
-          <Label className="text-[#eadef5] font-medium text-sm">
-            Email <span className="text-[#f3aeff]">*</span>
+          <Label className="text-[var(--on-surface)] font-medium text-sm">
+            Email <span className="text-[var(--tertiary)]">*</span>
           </Label>
           <Input
             name="email"
             type="email"
             placeholder="name@example.com"
             required
-            className="w-full h-11 bg-[#161020]/60 border border-[#4d4354] rounded-lg text-[#eadef5] placeholder:text-[#988d9f] focus:border-[#b76dff] focus:outline-none px-3"
+               className='w-full h-11 rounded-lg bg-[var(--surface-container-low)] border border-[var(--outline-variant)] hover:border-[var(--primary)] focus-within:border-[var(--primary)] focus-within:ring-2 focus-within:ring-[var(--primary)]/20 text-[var(--on-surface)] placeholder:text-[var(--outline)] px-3'
+            classNames={{
+              input: "text-[var(--on-surface)] placeholder:text-[var(--outline)] px-3",
+              inputWrapper: "bg-[var(--surface-container-low)] border border-[var(--outline-variant)] hover:border-[var(--primary)] focus-within:border-[var(--primary)] focus-within:ring-2 focus-within:ring-[var(--primary)]/20 h-11 rounded-lg shadow-none",
+            }}
           />
         </div>
 
         {/* Password Fields Row */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1.5">
-            <Label className="text-[#eadef5] font-medium text-sm">
-              Password <span className="text-[#f3aeff]">*</span>
+            <Label className="text-[var(--on-surface)] font-medium text-sm">
+              Password <span className="text-[var(--tertiary)]">*</span>
             </Label>
             <div className="relative">
               <Input
@@ -193,12 +201,16 @@ export default function SignUpPage() {
                 required
                 value={passwordValue}
                 onChange={(e) => setPasswordValue(e.target.value)}
-                className="w-full h-11 bg-[#161020]/60 border border-[#4d4354] rounded-lg text-[#eadef5] placeholder:text-[#988d9f] focus:border-[#b76dff] focus:outline-none px-3 pr-10"
+                  className='w-full h-11 rounded-lg bg-[var(--surface-container-low)] border border-[var(--outline-variant)] hover:border-[var(--primary)] focus-within:border-[var(--primary)] focus-within:ring-2 focus-within:ring-[var(--primary)]/20 text-[var(--on-surface)] placeholder:text-[var(--outline)] px-3'
+                classNames={{
+                  input: "text-[var(--on-surface)] placeholder:text-[var(--outline)] px-3 pr-10",
+                  inputWrapper: "bg-[var(--surface-container-low)] border border-[var(--outline-variant)] hover:border-[var(--primary)] focus-within:border-[var(--primary)] focus-within:ring-2 focus-within:ring-[var(--primary)]/20 h-11 rounded-lg shadow-none",
+                }}
               />
               <button
                 type="button"
                 onClick={() => setIsVisible(!isVisible)}
-                className="absolute cursor-pointer right-3 top-1/2 -translate-y-1/2 text-[#988d9f] hover:text-[#ddb7ff] transition-colors"
+                className="absolute cursor-pointer right-3 top-1/2 -translate-y-1/2 text-[var(--outline)] hover:text-[var(--primary)] transition-colors"
               >
                 {isVisible ? (
                   <Icon icon="heroicons:eye-slash" className="w-5 h-5" />
@@ -210,8 +222,8 @@ export default function SignUpPage() {
           </div>
 
           <div className="space-y-1.5">
-            <Label className="text-[#eadef5] font-medium text-sm">
-              Confirm <span className="text-[#f3aeff]">*</span>
+            <Label className="text-[var(--on-surface)] font-medium text-sm">
+              Confirm <span className="text-[var(--tertiary)]">*</span>
             </Label>
             <div className="relative">
               <Input
@@ -221,12 +233,12 @@ export default function SignUpPage() {
                 required
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className="w-full h-11 bg-[#161020]/60 border border-[#4d4354] rounded-lg text-[#eadef5] placeholder:text-[#988d9f] focus:border-[#b76dff] focus:outline-none px-3 pr-10"
+                className='w-full h-11 rounded-lg bg-[var(--surface-container-low)] border border-[var(--outline-variant)] hover:border-[var(--primary)] focus-within:border-[var(--primary)] focus-within:ring-2 focus-within:ring-[var(--primary)]/20 text-[var(--on-surface)] placeholder:text-[var(--outline)] px-3'
               />
               <button
                 type="button"
                 onClick={() => setIsConfirmVisible(!isConfirmVisible)}
-                className="absolute cursor-pointer right-3 top-1/2 -translate-y-1/2 text-[#988d9f] hover:text-[#ddb7ff] transition-colors"
+                className="absolute cursor-pointer right-3 top-1/2 -translate-y-1/2 text-[var(--outline)] hover:text-[var(--primary)] transition-colors"
               >
                 {isConfirmVisible ? (
                   <Icon icon="heroicons:eye-slash" className="w-5 h-5" />
@@ -239,7 +251,7 @@ export default function SignUpPage() {
         </div>
 
         {/* Password Validation List */}
-        <div className="space-y-2 bg-[#161020]/60 p-4 rounded-lg border border-[#4d4354]">
+        <div className="space-y-2 bg-[var(--surface-container-low)] p-4 rounded-lg border border-[var(--outline-variant)]">
           <ValidationItem isValid={hasMinLength} text="6+ characters" />
           <ValidationItem isValid={hasNumber} text="At least one number" />
           <ValidationItem isValid={hasUppercase} text="One uppercase letter" />
@@ -252,17 +264,17 @@ export default function SignUpPage() {
 
         {/* Role Selection */}
         <div className="space-y-2">
-          <Label className="text-[#eadef5] font-medium text-sm">
+          <Label className="text-[var(--on-surface)] font-medium text-sm">
             I am a...
           </Label>
-          <div className="flex rounded-lg overflow-hidden border border-[#4d4354] bg-[#161020]/60">
+          <div className="flex rounded-lg overflow-hidden border border-[var(--outline-variant)] bg-[var(--surface-container-low)]">
             <button
               type="button"
               onClick={() => setRole("user")}
               className={`flex-1 py-2.5 px-4 text-sm font-medium transition-all duration-200 ${
                 role === "user"
-                  ? "bg-[#b76dff] text-[#161020]"
-                  : "bg-transparent text-[#cfc2d6] hover:bg-[#2e2738]"
+                  ? "bg-[var(--primary-container)] text-[var(--on-primary-container)]"
+                  : "bg-transparent text-[var(--on-surface-variant)] hover:bg-[var(--surface-container-high)]"
               }`}
             >
               User
@@ -272,8 +284,8 @@ export default function SignUpPage() {
               onClick={() => setRole("vendor")}
               className={`flex-1 py-2.5 px-4 text-sm font-medium transition-all duration-200 ${
                 role === "vendor"
-                  ? "bg-[#b76dff] text-[#161020]"
-                  : "bg-transparent text-[#cfc2d6] hover:bg-[#2e2738]"
+                  ? "bg-[var(--primary-container)] text-[var(--on-primary-container)]"
+                  : "bg-transparent text-[var(--on-surface-variant)] hover:bg-[var(--surface-container-high)]"
               }`}
             >
               Vendor
@@ -285,7 +297,7 @@ export default function SignUpPage() {
         <Button
           type="submit"
           disabled={!isPasswordValid || !doPasswordsMatch}
-          className="w-full h-11 bg-[#b76dff] cursor-pointer text-[#161020] font-semibold rounded-lg hover:brightness-110 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed mt-2"
+          className="w-full h-11 bg-[var(--primary-container)] cursor-pointer text-[var(--on-primary-container)] font-semibold rounded-lg hover:brightness-110 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed mt-2"
         >
           Create Account
         </Button>
@@ -293,17 +305,17 @@ export default function SignUpPage() {
 
       {/* Divider */}
       <div className="my-6 flex items-center w-full">
-        <hr className="flex-grow border-t border-[#4d4354]" />
-        <span className="px-4 text-xs font-semibold text-[#988d9f] uppercase tracking-wider">
+        <hr className="flex-grow border-t border-[var(--outline-variant)]" />
+        <span className="px-4 text-xs font-semibold text-[var(--outline)] uppercase tracking-wider">
           OR
         </span>
-        <hr className="flex-grow border-t border-[#4d4354]" />
+        <hr className="flex-grow border-t border-[var(--outline-variant)]" />
       </div>
 
       {/* Google Button */}
       <Button
         onClick={handleGoogle}
-        className="w-full h-11 rounded-full cursor-pointer bg-[#f0dbff] text-[#161020] font-medium hover:bg-[#eadef5] transition-all duration-200 shadow-sm flex items-center justify-center gap-2"
+        className="w-full h-11 rounded-full cursor-pointer bg-[var(--primary-fixed)] text-[var(--on-primary-fixed)] font-medium hover:bg-[var(--inverse-surface)] transition-all duration-200 shadow-sm flex items-center justify-center gap-2"
       >
         <Icon icon="devicon:google" className="text-lg" />
         Continue with Google
@@ -311,10 +323,10 @@ export default function SignUpPage() {
 
       {/* Login Link */}
       <div className="text-center mt-6 text-sm">
-        <span className="text-[#cfc2d6]">Already have an account?</span>
+        <span className="text-[var(--on-surface-variant)]">Already have an account?</span>
         <Link
           href="/login"
-          className="font-semibold text-[#ddb7ff] hover:text-[#f3aeff] transition-colors ml-1"
+          className="font-semibold text-[var(--primary)] hover:text-[var(--tertiary)] transition-colors ml-1"
         >
           Log In
         </Link>
