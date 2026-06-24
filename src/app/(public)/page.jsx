@@ -1,8 +1,10 @@
+import BannerSlider from "@/components/Home/BannerSlider";
+
 
 export default function Home() {
   return (
    <div>
-    Homepage
+  <BannerSlider/>
    </div>
   );
 }
