@@ -9,11 +9,17 @@
   --background: #eadef5;
   --surface: #f5f0fa;
   --surface-container: #e8dff0;
+  --surface-container-low: #f1edf7; /* For inputs */
   --on-surface: #1f1929;
   --on-surface-variant: #4d4354;
   --primary: #842bd2;
   --primary-container: #ddb7ff;
   --border: #cfc2d6;
+  --outline-variant: #cfc2d6;
+  --outline: #988d9f;
+
+  /* Light Mode Shadow: Soft violet-tinted shadow */
+  --shadow-color: rgba(132, 43, 210, 0.15); 
 }
 
 .dark {
@@ -21,11 +27,17 @@
   --background: #161020;
   --surface: #231d2d;
   --surface-container: #2e2738;
+  --surface-container-low: #1f1929; /* For inputs */
   --on-surface: #eadef5;
   --on-surface-variant: #cfc2d6;
   --primary: #ddb7ff;
   --primary-container: #b76dff;
   --border: #4d4354;
+  --outline-variant: #4d4354; /* Added missing variable */
+  --outline: #988d9f;
+
+  /* Dark Mode Shadow: 0.55 opacity black shadow */
+  --shadow-color: rgba(0, 0, 0, 0.55); 
 }
 
 body {

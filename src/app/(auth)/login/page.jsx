@@ -21,13 +21,7 @@ export default function SignInPage() {
     const { data: sessionData } = await authClient.getSession();
     const userRole = sessionData?.user?.role;
 
-    if (userRole === "vendor") {
-      router.push("/vendor/dashboard");
-    } else if (userRole === "admin") {
-      router.push("/admin/dashboard");
-    } else {
-      router.push("/dashboard"); // or "/" for regular users
-    }
+    router.push(`/dashboard/${userRole}`)
   };
 
   const onSubmit = async (event) => {
@@ -111,18 +105,15 @@ export default function SignInPage() {
   };
 
   return (
-    <div >
-      <div className="w-full max-w-[580px]">
-        
-        
-
+    <div>
+      <div className="w-full  max-w-[580px]">
         {/* Main Form Card */}
-        <div className="bg-[#231d2d] border border-[#4d4354] rounded-xl p-8 sm:p-10 shadow-2xl shadow-black/50">
+        <div className="bg-[var(--surface-container)] border border-[var(--outline-variant)] rounded-xl p-8 sm:p-10 shadow-2xl shadow-black/50">
           
           {/* Header Section */}
           <div className="text-center mb-8">
-            <h1 className="text-[#ddb7ff] text-2xl font-bold mb-2">Welcome back</h1>
-            <p className="text-[#cfc2d6] text-sm">
+            <h1 className="text-[var(--primary)] text-2xl font-bold mb-2">Welcome back</h1>
+            <p className="text-[var(--on-surface-variant)] text-sm">
               Please enter your details to sign in
             </p>
           </div>
@@ -132,7 +123,7 @@ export default function SignInPage() {
             
             {/* Email Field */}
             <div className="space-y-1.5">
-              <Label className="text-[#eadef5] font-medium text-sm">
+              <Label className="text-[var(--on-surface)] font-medium text-sm">
                 Email
               </Label>
               <Input
@@ -141,19 +132,19 @@ export default function SignInPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full h-11 bg-[#1f1929] border border-[#4d4354] rounded-lg text-[#eadef5] placeholder:text-[#988d9f] focus:border-[#b76dff] focus:outline-none px-3"
+                className="w-full h-11 bg-[var(--surface-container-low)] border border-[var(--outline-variant)] rounded-lg text-[var(--on-surface)] placeholder:text-[var(--outline)] focus:border-[var(--primary-container)] focus:outline-none px-3"
               />
             </div>
 
             {/* Password Field */}
             <div className="space-y-1.5">
               <div className="flex items-center justify-between">
-                <Label className="text-[#eadef5] font-medium text-sm">
+                <Label className="text-[var(--on-surface)] font-medium text-sm">
                   Password
                 </Label>
                 <Link 
                   href="/forgot-password" 
-                  className="text-sm text-[#ddb7ff] hover:text-[#f3aeff] transition-colors"
+                  className="text-sm text-[var(--primary)] hover:text-[var(--tertiary)] transition-colors"
                 >
                   Forgot?
                 </Link>
@@ -165,12 +156,12 @@ export default function SignInPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="w-full h-11 bg-[#1f1929] border border-[#4d4354] rounded-lg text-[#eadef5] placeholder:text-[#988d9f] focus:border-[#b76dff] focus:outline-none px-3"
+                  className="w-full h-11 bg-[var(--surface-container-low)] border border-[var(--outline-variant)] rounded-lg text-[var(--on-surface)] placeholder:text-[var(--outline)] focus:border-[var(--primary-container)] focus:outline-none px-3"
                 />
                 <button
                   type="button"
                   onClick={() => setIsVisible(!isVisible)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#988d9f] hover:text-[#ddb7ff] transition-colors"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--outline)] hover:text-[var(--primary)] transition-colors"
                 >
                   {isVisible ? (
                     <Icon icon="heroicons:eye-slash" className="w-5 h-5" />
@@ -185,7 +176,7 @@ export default function SignInPage() {
             <Button
               type="submit"
               disabled={loading}
-              className="w-full h-11 bg-[#b76dff] text-[#161020] font-semibold rounded-lg hover:brightness-110 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed mt-2"
+              className="w-full h-11 bg-[var(--primary-container)] text-[var(--on-primary-container)] font-semibold rounded-lg hover:brightness-110 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed mt-2"
             >
               {loading ? "Signing in..." : "Log In"}
             </Button>
@@ -193,17 +184,17 @@ export default function SignInPage() {
 
           {/* Divider */}
           <div className="my-6 flex items-center w-full">
-            <hr className="flex-grow border-t border-[#4d4354]" />
-            <span className="px-4 text-xs font-semibold text-[#988d9f] uppercase tracking-wider">
+            <hr className="flex-grow border-t border-[var(--outline-variant)]" />
+            <span className="px-4 text-xs font-semibold text-[var(--outline)] uppercase tracking-wider">
               OR
             </span>
-            <hr className="flex-grow border-t border-[#4d4354]" />
+            <hr className="flex-grow border-t border-[var(--outline-variant)]" />
           </div>
 
           {/* Google Button */}
           <Button
             onClick={handleGoogle}
-            className="w-full h-11 rounded-full bg-[#f0dbff] text-[#161020] font-medium hover:bg-[#eadef5] transition-all duration-200 shadow-sm flex items-center justify-center gap-2"
+            className="w-full h-11 rounded-full bg-[var(--primary-fixed)] text-[var(--on-primary-fixed)] font-medium hover:bg-[var(--inverse-surface)] transition-all duration-200 shadow-sm flex items-center justify-center gap-2"
           >
             <Icon icon="devicon:google" className="text-lg" />
             Continue with Google
@@ -212,7 +203,7 @@ export default function SignInPage() {
           {/* Demo Accounts Section */}
           <div className="mt-6 space-y-3">
             <div className="text-center">
-              <span className="text-xs text-[#988d9f] uppercase tracking-wider">
+              <span className="text-xs text-[var(--outline)] uppercase tracking-wider">
                 Demo Accounts
               </span>
             </div>
@@ -222,7 +213,7 @@ export default function SignInPage() {
                 type="button"
                 onClick={() => handleDemoLogin("vendor20053@gmail.com", "Vendor20053@gmail.com")}
                 disabled={loading}
-                className="px-4 py-2.5 bg-[#1f1929] border border-[#4d4354] rounded-lg text-sm font-medium text-[#cfc2d6] hover:border-[#b76dff] hover:text-[#ddb7ff] transition-all duration-200 disabled:opacity-50"
+                className="px-4 py-2.5 bg-[var(--surface-container-low)] border border-[var(--outline-variant)] rounded-lg text-sm font-medium text-[var(--on-surface-variant)] hover:border-[var(--primary-container)] hover:text-[var(--primary)] transition-all duration-200 disabled:opacity-50"
               >
                 Demo Vendor
               </button>
@@ -231,7 +222,7 @@ export default function SignInPage() {
                 type="button"
                 onClick={() => handleDemoLogin("admin20053@gmail.com", "Admin20053@gmail.com")}
                 disabled={loading}
-                className="px-4 py-2.5 bg-[#1f1929] border border-[#4d4354] rounded-lg text-sm font-medium text-[#cfc2d6] hover:border-[#b76dff] hover:text-[#ddb7ff] transition-all duration-200 disabled:opacity-50"
+                className="px-4 py-2.5 bg-[var(--surface-container-low)] border border-[var(--outline-variant)] rounded-lg text-sm font-medium text-[var(--on-surface-variant)] hover:border-[var(--primary-container)] hover:text-[var(--primary)] transition-all duration-200 disabled:opacity-50"
               >
                 Demo Admin
               </button>
@@ -240,12 +231,12 @@ export default function SignInPage() {
 
           {/* Sign Up Link */}
           <div className="text-center mt-6 text-sm">
-            <span className="text-[#cfc2d6]">
+            <span className="text-[var(--on-surface-variant)]">
               Don't have an account?
             </span>
             <Link
               href="/register"
-              className="font-semibold text-[#ddb7ff] hover:text-[#f3aeff] transition-colors ml-1"
+              className="font-semibold text-[var(--primary)] hover:text-[var(--tertiary)] transition-colors ml-1"
             >
               Sign Up
             </Link>

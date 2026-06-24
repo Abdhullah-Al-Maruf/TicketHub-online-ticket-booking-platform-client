@@ -7,9 +7,7 @@ import { useTheme } from "next-themes";
 import { authClient } from "@/lib/auth-client";
 import { Icon } from "@iconify/react";
 import toast from "react-hot-toast";
-import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import Image from "next/image";
-import { Button } from "@heroui/react";
 import Logo from "./Logo";
 
 export default function Navbar() {
@@ -31,10 +29,13 @@ export default function Navbar() {
     };
     fetchSession();
   }, []);
+   const role = session?.user?.role;
 
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark");
   };
+
+  
 
   const handleLogout = async () => {
     try {
@@ -49,20 +50,12 @@ export default function Navbar() {
   };
 
   const handleDashboardClick = () => {
-    const role = session?.user?.role;
+ 
     setIsDropdownOpen(false);
-    if (role === "vendor") router.push("/vendor/dashboard");
-    else if (role === "admin") router.push("/admin/dashboard");
-    else router.push("/dashboard");
+    router.push(`/dashboard/${role}`);
   };
 
-  // dashboard URL based on user role
-  const dashboardHref =
-    session?.user?.role === "vendor"
-      ? "/vendor/dashboard"
-      : session?.user?.role === "admin"
-        ? "/admin/dashboard"
-        : "/dashboard";
+
 
   const navLinks = [
     { name: "Home", href: "/" },
@@ -103,9 +96,9 @@ export default function Navbar() {
             {/* for dynamic dashboard link */}
             {session?.user && (
               <Link
-                href={dashboardHref}
+                href={`/dashboard/${role}`}
                 className={`text-sm font-medium transition-colors duration-200 ${
-                  pathname === dashboardHref
+                  pathname === `/dashboard/${role}`
                     ? "text-(--primary)" // Highlights when on the dashboard
                     : "text-(--on-surface-variant) hover:text-(--on-surface)"
                 }`}
