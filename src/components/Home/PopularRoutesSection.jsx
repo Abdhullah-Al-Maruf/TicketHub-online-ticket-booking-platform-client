@@ -74,11 +74,11 @@ export default function PopularRoutesSection() {
         <div>
           <div className="inline-flex items-center gap-2 px-4 py-2 mb-4 bg-[var(--secondary)]/10 border border-[var(--secondary)]/30 rounded-full">
             <Icon icon="heroicons:fire" className="w-4 h-4 text-[var(--secondary)]" />
-            <span className="text-[var(--secondary)] text-xs font-semibold uppercase tracking-wider">
+            <span className="  text-xs font-semibold uppercase tracking-wider">
               Popular Routes
             </span>
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-[var(--on-surface)] mb-3">
+          <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-b from-[var(--primary)] via-[var(--primary-container)] to-[var(--tertiary)] bg-clip-text text-transparent drop-shadow-2xl mb-3">
             Most Booked Routes
           </h2>
           <p className="text-[var(--on-surface-variant)] max-w-xl">

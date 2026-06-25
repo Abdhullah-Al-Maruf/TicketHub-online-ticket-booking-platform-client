@@ -44,7 +44,7 @@ export default function Faq() {
             FAQ
           </span>
         </div>
-        <h2 className="text-3xl md:text-4xl font-bold text-[var(--on-surface)] mb-3">
+        <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-b from-[var(--primary)] via-[var(--primary-container)] to-[var(--tertiary)] bg-clip-text text-transparent drop-shadow-2xl mb-3">
           Frequently Asked Questions
         </h2>
         <p className="text-[var(--on-surface-variant)] max-w-2xl mx-auto">
