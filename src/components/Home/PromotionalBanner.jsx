@@ -42,7 +42,7 @@ export default function PromotionalBanner() {
               Claim Offer
             </Link>
             <Link
-              href="/tickets"
+              href="/all-tickets"
               className="inline-flex items-center gap-2 px-6 py-2.5 bg-[var(--surface-container)] border border-[var(--outline-variant)] text-[var(--on-surface)] font-medium rounded-lg hover:bg-[var(--surface-container-highest)] transition-all text-sm"
             >
               Browse Tickets

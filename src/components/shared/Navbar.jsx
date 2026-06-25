@@ -59,7 +59,7 @@ export default function Navbar() {
 
   const navLinks = [
     { name: "Home", href: "/" },
-    { name: "All Tickets", href: "/tickets" },
+    { name: "All Tickets", href: "/all-tickets" },
     { name: "About", href: "/about" },
   ];
 

@@ -35,7 +35,7 @@ export default function HeroBanner() {
           {/* CTA Buttons */}
           <div className="flex items-center gap-4">
             <Link
-              href="/tickets"
+              href="/all-tickets"
               className="inline-flex items-center gap-2 px-6 py-2.5 bg-purple-800 font-semibold rounded-lg hover:brightness-110 transition-all text-sm"
             >
               <Icon icon="heroicons:ticket" className="w-4 h-4" />

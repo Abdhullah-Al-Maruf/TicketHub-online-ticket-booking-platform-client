@@ -44,7 +44,7 @@ export default function NotFound() {
           </Link>
           
           <Link
-            href="/tickets"
+            href="/all-tickets"
             className="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-[var(--surface-container)] border border-[var(--outline-variant)] text-[var(--on-surface)] font-medium rounded-lg hover:bg-[var(--surface-container-high)] hover:border-[var(--primary)] transition-all duration-200 w-full sm:w-auto"
           >
             <Icon icon="heroicons:magnifying-glass" className="w-5 h-5" />

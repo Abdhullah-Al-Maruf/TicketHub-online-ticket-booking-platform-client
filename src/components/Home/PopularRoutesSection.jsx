@@ -86,7 +86,7 @@ export default function PopularRoutesSection() {
           </p>
         </div>
         <Link
-          href="/tickets"
+          href="/all-tickets"
           className="inline-flex items-center gap-2 text-[var(--primary)] font-semibold hover:text-[var(--tertiary)] transition-colors"
         >
           View All Routes

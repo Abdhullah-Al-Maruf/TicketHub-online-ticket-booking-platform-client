@@ -61,7 +61,7 @@ export default function BenefitsSection() {
   ];
 
   return (
-    <section className="w-full bg-[var(--surface-container)]/50 border-y border-[var(--outline-variant)]">
+    <section className="w-full max-w-7xl mx-auto bg-[var(--surface-container)]/50 border-y border-[var(--outline-variant)]">
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 py-16 md:py-24">
         {/* Section Header */}
         <div className="text-center mb-12">
