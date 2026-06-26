@@ -6,7 +6,9 @@ const LatestTicketsSection = () => {
   return (
     <div>
       <div className="text-center mt-30 mb-20 px-4 sm:px-6 lg:px-8">
-        <h1 className="text-4xl font-bold bg-gradient-to-b from-[var(--primary)] via-[var(--primary-container)] to-[var(--tertiary)] bg-clip-text text-transparent drop-shadow-2xl ">Latest Tickets</h1>
+       <h1 className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-[var(--primary)] via-[#a855f7] to-[#4f46e5] bg-clip-text text-transparent drop-shadow-sm tracking-tight py-1">
+  Latest Tickets
+</h1>
         <h2 className=" font-medium mt-4">
           Be the first to book our latest tickets and enjoy smooth journeys with
           <br /> reliable bus services.

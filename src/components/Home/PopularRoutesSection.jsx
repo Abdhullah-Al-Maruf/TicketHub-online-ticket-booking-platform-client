@@ -78,9 +78,9 @@ export default function PopularRoutesSection() {
               Popular Routes
             </span>
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-b from-[var(--primary)] via-[var(--primary-container)] to-[var(--tertiary)] bg-clip-text text-transparent drop-shadow-2xl mb-3">
-            Most Booked Routes
-          </h2>
+         <h1 className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-[var(--primary)] via-[#a855f7] to-[#4f46e5] bg-clip-text text-transparent drop-shadow-sm tracking-tight py-1">
+  Most Booked Routes
+</h1>
           <p className="text-[var(--on-surface-variant)] max-w-xl">
             Discover the most popular travel routes chosen by thousands of travelers every day.
           </p>

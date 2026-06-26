@@ -44,9 +44,9 @@ export default function Faq() {
             FAQ
           </span>
         </div>
-        <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-b from-[var(--primary)] via-[var(--primary-container)] to-[var(--tertiary)] bg-clip-text text-transparent drop-shadow-2xl mb-3">
-          Frequently Asked Questions
-        </h2>
+        <h1 className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-[var(--primary)] via-[#a855f7] to-[#4f46e5] bg-clip-text text-transparent drop-shadow-sm tracking-tight py-1">
+     Frequently Asked Questions
+</h1>
         <p className="text-[var(--on-surface-variant)] max-w-2xl mx-auto">
           Everything you need to know about TicketHub. Can't find what you're looking for? Contact our support team.
         </p>

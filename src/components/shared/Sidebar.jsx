@@ -1,6 +1,6 @@
 "use client";
 
-import { Drawer, Button as HeroButton } from "@heroui/react";
+import { Drawer, Button as HeroButton, Separator } from "@heroui/react";
 import { FaHistory, FaHome, FaUsers } from "react-icons/fa";
 import { FaCodePullRequest, FaTicketSimple } from "react-icons/fa6";
 import { GiTakeMyMoney } from "react-icons/gi";
@@ -13,6 +13,7 @@ import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
 import toast from "react-hot-toast";
+
 
 // Internal client component for tracking highlighted paths
 function NavLinks({ items, onMobileClose }) {
@@ -28,7 +29,7 @@ function NavLinks({ items, onMobileClose }) {
             onClick={onMobileClose}
             className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
               isActive
-                ? "bg-[var(--primary)] text-[var(--on-primary)]"
+                ? "border bg-pink-200/20 border-[var(--outline-variant)] text-[var(--on-primary)]"
                 : "text-[var(--on-surface-variant)] hover:bg-[var(--surface-container-high)] hover:text-[var(--on-surface)]"
             }`}
             href={item.href}
@@ -48,22 +49,54 @@ export function Sidebar({ isMobileOpen, onMobileClose, user }) {
   const vendorNavLinks = [
     { icon: Person, href: "/dashboard/vendor", label: "Profile" },
     { icon: Plus, href: "/dashboard/vendor/add-ticket", label: "Add Tickets" },
-    { icon: TiTicket, href: "/dashboard/vendor/my-tickets", label: "My Added Tickets" },
-    { icon: FaCodePullRequest, href: "/dashboard/vendor/requested-bookings", label: "Requested Booking" },
-    { icon: GiTakeMyMoney, href: "/dashboard/vendor/revenue", label: "Revenue Overview" },
+    {
+      icon: TiTicket,
+      href: "/dashboard/vendor/my-tickets",
+      label: "My Added Tickets",
+    },
+    {
+      icon: FaCodePullRequest,
+      href: "/dashboard/vendor/requested-bookings",
+      label: "Requested Booking",
+    },
+    {
+      icon: GiTakeMyMoney,
+      href: "/dashboard/vendor/revenue",
+      label: "Revenue Overview",
+    },
   ];
 
   const userNavLinks = [
     { icon: Person, href: "/dashboard/user", label: "Profile" },
-    { icon: TiTicket, href: "/dashboard/user/my-bookings", label: "My Booked Tickets" },
-    { icon: FaHistory, href: "/dashboard/user/transactions", label: "Transaction History" },
+    {
+      icon: TiTicket,
+      href: "/dashboard/user/my-bookings",
+      label: "My Booked Tickets",
+    },
+    {
+      icon: FaHistory,
+      href: "/dashboard/user/transactions",
+      label: "Transaction History",
+    },
   ];
 
   const adminNavLinks = [
     { icon: PersonFill, href: "/dashboard/admin", label: "Profile" },
-    { icon: FaTicketSimple, href: "/dashboard/admin/manage-tickets", label: "Manage Tickets" },
-    { icon: FaUsers, href: "/dashboard/admin/manage-users", label: "Manage Users" },
-    { icon: RiAdvertisementFill, href: "/dashboard/admin/advertise", label: "Advertise Tickets" },
+    {
+      icon: FaTicketSimple,
+      href: "/dashboard/admin/manage-tickets",
+      label: "Manage Tickets",
+    },
+    {
+      icon: FaUsers,
+      href: "/dashboard/admin/manage-users",
+      label: "Manage Users",
+    },
+    {
+      icon: RiAdvertisementFill,
+      href: "/dashboard/admin/advertise",
+      label: "Advertise Tickets",
+    },
   ];
 
   const navLinksMap = {
@@ -89,10 +122,13 @@ export function Sidebar({ isMobileOpen, onMobileClose, user }) {
   const navContent = (
     <div className="flex flex-col h-full bg-[var(--surface-container)]">
       {/* Header */}
-      <div className="px-4 py-6 mb-2">
-        <h2 className="text-2xl font-bold text-[var(--primary)] tracking-tight">TicketHub</h2>
+      <div className="mt-5 mb-2 pl-5">
+        {/* Brand Name */}
+        <span className="text-2xl  font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-[red] to-[#b76dff]">
+          TicketHub
+        </span>
       </div>
-
+<Separator className="border-b border-[var(--outline-variant)] mb-3"/>
       {/* Navigation Links with Active Path Tracker */}
       <NavLinks items={navItems} onMobileClose={onMobileClose} />
 
@@ -122,7 +158,13 @@ export function Sidebar({ isMobileOpen, onMobileClose, user }) {
         <div className="flex items-center gap-3 mb-3">
           <div className="w-10 h-10 rounded-full bg-[var(--outline-variant)] overflow-hidden flex items-center justify-center shrink-0">
             {user?.image ? (
-              <Image src={user.image} alt={user.name || "User Profile"} width={40} height={40} className="object-cover" />
+              <Image
+                src={user.image}
+                alt={user.name || "User Profile"}
+                width={40}
+                height={40}
+                className="object-cover"
+              />
             ) : (
               <Person className="size-6 text-[var(--on-surface)]" />
             )}
@@ -136,7 +178,7 @@ export function Sidebar({ isMobileOpen, onMobileClose, user }) {
             </span>
           </div>
         </div>
-        <button className="w-full py-1.5 rounded-md bg-[var(--primary)] text-[var(--on-primary)] text-xs font-bold uppercase tracking-wider hover:brightness-110 transition-all">
+        <button className="w-full py-1.5 rounded-md border bg-pink-200/20 border-[var(--outline-variant)] text-[var(--on-primary)] text-xs font-bold uppercase tracking-wider hover:brightness-110 transition-all">
           {user?.role || "USER"}
         </button>
       </div>
@@ -149,13 +191,19 @@ export function Sidebar({ isMobileOpen, onMobileClose, user }) {
       <aside className="hidden lg:flex w-64 flex-col shrink-0 border-r border-[var(--outline-variant)] bg-[var(--surface-container)] sticky top-0 h-screen overflow-y-auto">
         {navContent}
       </aside>
-      
+
       {/* Mobile View Drawer System */}
       <Drawer isOpen={isMobileOpen} onOpenChange={onMobileClose}>
         <Drawer.Backdrop>
-          <Drawer.Content placement="left" className="bg-[var(--surface-container)] max-w-xs p-0">
+          <Drawer.Content
+            placement="left"
+            className="bg-[var(--surface-container)] max-w-xs p-0"
+          >
             <Drawer.Dialog className="h-full">
-              <Drawer.CloseTrigger onClick={onMobileClose} className="top-4 right-4 z-50 text-[var(--on-surface)]" />
+              <Drawer.CloseTrigger
+                onClick={onMobileClose}
+                className="top-4 right-4 z-50 text-[var(--on-surface)]"
+              />
               <Drawer.Body className="p-0 h-full overflow-y-auto">
                 {navContent}
               </Drawer.Body>

@@ -38,14 +38,14 @@ export default function TicketCard({ ticket }) {
     <Card className="bg-[var(--surface-container)] border border-[var(--outline-variant)] overflow-hidden h-full flex flex-col rounded-xl" radius="lg">
       
       {/* 1. Image Section: Now fits perfectly with rounded-t-lg */}
-      <div className="relative h-44 w-full overflow-hidden rounded-t-lg">
+      <div className="relative h-44 w-full overflow-hidden rounded-lg">
         <Image
-          src={currentTicket.image || "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957"}
+          src={currentTicket.image}
           alt={currentTicket.title}
           fill
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[var(--surface-container)] to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[] to-transparent" />
         
         {/* Transport Type Badge */}
         <span className="absolute top-3 left-3 bg-[var(--primary-container)] text-[var(--on-primary-container)] font-semibold text-xs px-3 py-1.5 rounded-lg flex items-center gap-1.5 shadow-sm">
@@ -71,7 +71,7 @@ export default function TicketCard({ ticket }) {
         {/* Perks + Available Seats in same row */}
         <div className="flex items-start justify-between gap-2 pt-2">
           <div className="space-y-2">
-            <p className="text-xs font-medium text-[var(--on-surface-variant)]">Included Perks:</p>
+            <p className="text-xs font-medium flex justify-start">Included Perks:</p>
             <div className="flex flex-wrap gap-2">
               {currentTicket.perks?.map((perk, i) => (
                 <span key={i} className="text-[10px] font-medium text-[var(--primary)] bg-[var(--primary)]/10 border border-[var(--primary)]/20 px-2 py-1 rounded-full">{perk}</span>

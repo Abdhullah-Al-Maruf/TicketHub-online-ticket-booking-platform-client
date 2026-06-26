@@ -147,9 +147,9 @@ export default function Navbar() {
                   className="flex items-center gap-2 focus:outline-none"
                 >
                   <div className="w-9 h-9 rounded-full bg-linear-to-br from-(--primary) to-(--primary-container) flex items-center justify-center border-2 border-[var(--border)] cursor-pointer overflow-hidden">
-                    {session.user.photoURL ? (
+                    {session.user.image ? (
                       <Image
-                        src={session.user.photoURL}
+                        src={session.user.image}
                         alt={session.user.name}
                         className="w-full h-full rounded-full object-cover"
                         width={36}
