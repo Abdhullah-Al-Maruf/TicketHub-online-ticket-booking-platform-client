@@ -54,7 +54,7 @@ export default function FilterAndSearch({ initialFilters }) {
             placeholder="Dhaka"
             value={filters.from}
             onChange={(e) => handleChange("from", e.target.value)}
-            startContent={<FaMapMarkerAlt className="text-[var(--primary)] text-sm shrink-0" />}
+            startcontent={<FaMapMarkerAlt className="text-[var(--primary)] text-sm shrink-0" />}
             classNames={{
               inputWrapper: "bg-[var(--surface-container-low)] border border-[var(--outline-variant)] hover:border-[var(--primary)] focus-within:!border-[var(--primary)] transition-colors h-11 px-3 w-full",
               input: "text-[var(--on-surface)] placeholder:text-[var(--on-surface-variant)]/40 text-sm",

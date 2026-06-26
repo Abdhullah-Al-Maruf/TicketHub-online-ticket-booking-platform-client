@@ -1,11 +1,11 @@
 import React from 'react';
 
-const vendorPage = () => {
+const vendorHomePage = () => {
     return (
         <div>
-         vendor page   
+            vendor Home profile
         </div>
     );
 };
 
-export default vendorPage;
+export default vendorHomePage;

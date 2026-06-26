@@ -1,14 +1,14 @@
-import { Sidebar } from "@/components/shared/Sidebar";
-import React from "react";
+import { getUserSession } from "@/lib/core/session";
+import DashboardLayoutClient from "./dashboard/DashboardLayoutClient";
 
-const DashboardLayout = ({ children }) => {
+
+export default async function DashboardLayout({ children }) {
+  // Safe Server-Side invocation of next/headers inside the App Router hierarchy
+  const user = await getUserSession();
+
   return (
-    <div>
-      <nav>iam a navabar</nav>
-      <Sidebar />
-      <main>{children}</main>
-    </div>
+    <DashboardLayoutClient user={user}>
+      {children}
+    </DashboardLayoutClient>
   );
-};
-
-export default DashboardLayout;
+}
