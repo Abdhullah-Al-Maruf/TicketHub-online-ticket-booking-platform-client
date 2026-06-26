@@ -1,9 +1,12 @@
+import ReusableProfileComponent from '@/components/shared/ReusableProfileComponent';
+import { getUserSession } from '@/lib/core/session';
 import React from 'react';
 
-const vendorHomePage = () => {
+const vendorHomePage =async () => {
+    const user= await getUserSession();
     return (
         <div>
-            vendor Home profile
+        <ReusableProfileComponent user={user}/>
         </div>
     );
 };

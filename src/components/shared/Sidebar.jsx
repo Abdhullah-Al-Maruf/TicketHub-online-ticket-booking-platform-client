@@ -124,9 +124,11 @@ export function Sidebar({ isMobileOpen, onMobileClose, user }) {
       {/* Header */}
       <div className="mt-5 mb-2 pl-5">
         {/* Brand Name */}
+     <Link href={"/"}>
         <span className="text-2xl  font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-[red] to-[#b76dff]">
           TicketHub
         </span>
+     </Link>
       </div>
 <Separator className="border-b border-[var(--outline-variant)] mb-3"/>
       {/* Navigation Links with Active Path Tracker */}
