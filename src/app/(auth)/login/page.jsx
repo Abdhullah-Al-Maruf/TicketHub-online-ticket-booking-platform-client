@@ -194,7 +194,7 @@ export default function SignInPage() {
           {/* Google Button */}
           <Button
             onClick={handleGoogle}
-            className="w-full h-11 rounded-full bg-[var(--primary-fixed)] text-[var(--on-primary-fixed)] font-medium hover:bg-[var(--inverse-surface)] transition-all duration-200 shadow-sm flex items-center justify-center gap-2"
+            className="w-full h-11 rounded-full bg-[var(--surface-container-low)] border border-[var(--outline-variant)] font-medium hover:bg-[var(--inverse-surface)] transition-all duration-200 shadow-sm flex items-center justify-center gap-2"
           >
             <Icon icon="devicon:google" className="text-lg" />
             Continue with Google

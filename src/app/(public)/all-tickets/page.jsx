@@ -1,5 +1,5 @@
 import { demoTickets } from '@/components/Home/FeaturedTicketsSection';
-import FilterAndSearch from '@/components/tickets/FilterAndSearch';
+
 import TicketCard from '@/components/tickets/TicketCard';
 import React from 'react';
 

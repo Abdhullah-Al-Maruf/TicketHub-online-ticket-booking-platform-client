@@ -1,6 +1,6 @@
 "use client";
 
-import {  useState } from "react";
+import { useState } from "react";
 import { Input, Button, Select, ListBox } from "@heroui/react";
 import { BiPaperPlane } from "react-icons/bi";
 import toast from "react-hot-toast";
@@ -14,8 +14,8 @@ import Image from "next/image";
 
 export default function AddTicketForm() {
   const { data: session } = authClient.useSession();
- const name=session?.user?.name
- const email=session?.user?.email
+  const name = session?.user?.name;
+  const email = session?.user?.email;
   const [loading, setLoading] = useState(false);
   const [uploadingImage, setUploadingImage] = useState(false);
 
@@ -107,39 +107,17 @@ export default function AddTicketForm() {
       perks: perks,
       imageUrl: ticketImageUrl,
       vendor: {
-        name:name,
-        email:email,
+        name: name,
+        email: email,
       },
       status: "pending",
     };
-console.log(payload);
-    // try {
-    //   const response = await fetch("/api/tickets", {
-    //     method: "POST",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify(payload),
-    //   });
-
-    //   if (!response.ok)
-    //     throw new Error("Database collection storage insertion failure.");
-
-    //   toast.success("Ticket submitted for admin review processing!");
-    //   form.reset();
-    //   setTicketImageUrl("");
-    //   setFileName("");
-    //   setFileSize("");
-    //   setPerks(["AC", "WiFi"]);
-    //   setTransportType("Bus");
-    // } catch (err) {
-    //   toast.error(err.message || "Failed to process form execution.");
-    // } finally {
-    //   setLoading(false);
-    // }
+    console.log(payload);
+    // ... API call remains commented out ...
   };
 
   return (
     <div className="min-h-screen bg-background text-on-surface p-4 sm:p-6 md:p-12 font-sans selection:bg-primary-container selection:text-on-surface">
-      {/* Header Bar Section */}
       <div className="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 md:mb-8">
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-on-surface">
@@ -152,7 +130,6 @@ console.log(payload);
         </div>
       </div>
 
-      {/* Main Form Dashboard Wrapper */}
       <form
         onSubmit={handleSubmit}
         className="max-w-6xl mx-auto bg-surface border border-border rounded-2xl p-4 sm:p-6 md:p-8 space-y-8 shadow-custom"
@@ -160,9 +137,9 @@ console.log(payload);
         <input type="hidden" name="transportType" value={transportType} />
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8">
-          {/* Left Column Fields */}
+          {/* Left Column */}
           <div className="lg:col-span-7 space-y-5 md:space-y-6">
-            {/* Row 1: Ticket Name, Price, and Quantity in One Line */}
+            {/* Row 1 */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <div className="md:col-span-2 flex flex-col gap-1">
                 <label className="text-on-surface-variant font-medium text-sm mb-1">
@@ -172,10 +149,7 @@ console.log(payload);
                   required
                   name="ticketTitle"
                   placeholder="e.g. Dhaka to Sylhet Premium Express"
-                  classNames={{
-                    inputWrapper:
-                      "bg-surface-container-low border-border hover:border-outline-variant focus-within:!border-primary text-on-surface h-12",
-                  }}
+                  className="bg-surface-container-low border-border hover:border-outline-variant focus-within:!border-primary text-on-surface h-12"
                   variant="bordered"
                 />
               </div>
@@ -189,10 +163,7 @@ console.log(payload);
                   type="number"
                   step="0.01"
                   placeholder="$ 0.00"
-                  classNames={{
-                    inputWrapper:
-                      "bg-surface-container-low border-border hover:border-outline-variant focus-within:!border-primary text-on-surface h-12",
-                  }}
+                  className="bg-surface-container-low border-border hover:border-outline-variant focus-within:!border-primary text-on-surface h-12"
                   variant="bordered"
                 />
               </div>
@@ -205,72 +176,58 @@ console.log(payload);
                   name="quantityAvailable"
                   type="number"
                   placeholder="40"
-                  classNames={{
-                    inputWrapper:
-                      "bg-surface-container-low border-border hover:border-outline-variant focus-within:!border-primary text-on-surface h-12",
-                  }}
+                  className="bg-surface-container-low border-border hover:border-outline-variant focus-within:!border-primary text-on-surface h-12"
                   variant="bordered"
                 />
               </div>
             </div>
 
-            {/* Row 2: Transport Selection Type */}
-            <div className="flex flex-col gap-2 relative">
-              {/* Ambient Background Glow Effect Layers */}
-              <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-pink-500/10 via-purple-600/5 to-transparent blur-3xl pointer-events-none -z-10" />
-              <div className="absolute bottom-0 left-0 w-64 h-64 bg-gradient-to-tr from-indigo-500/10 via-indigo-600/5 to-transparent blur-3xl pointer-events-none -z-10" />
-
+            {/* Transport Type */}
+            <div className="flex flex-col gap-1">
               <label
                 htmlFor="transport-type-select"
-                className="text-xs font-bold uppercase tracking-wider text-slate-400"
+                className="text-on-surface-variant font-medium text-sm mb-1"
               >
                 Transport Type
               </label>
-
-              <div className="relative group">
+              <div className="relative">
                 <Select
                   id="transport-type-select"
                   value={transportType}
                   onChange={(value) => setTransportType(value)}
                   placeholder="Select transport"
                 >
-                  <Select.Trigger className="w-full h-12 bg-slate-900/60 border border-white/10 rounded-xl px-3 text-white text-sm outline-none focus:border-pink-500 transition-colors flex justify-between items-center">
+                  <Select.Trigger className="w-full h-12 bg-surface-container-low border border-border rounded-xl px-3 text-on-surface text-sm outline-none hover:border-outline-variant focus-within:!border-primary transition-colors flex justify-between items-center">
                     <Select.Value>
-                      {transportType || "All Categories"}
+                      {transportType || "Select transport"}
                     </Select.Value>
                     <Select.Indicator>
-                      <IoChevronDownCircleOutline className="w-4 h-4 text-slate-400 group-hover:text-white transition-colors" />
+                      <IoChevronDownCircleOutline className="w-4 h-4 text-on-surface-variant opacity-70" />
                     </Select.Indicator>
                   </Select.Trigger>
 
-                  <Select.Popover className="bg-slate-900 border border-white/10 rounded-xl shadow-2xl mt-1 overflow-hidden backdrop-blur-md">
-                    <ListBox className="text-white p-1">
+                  <Select.Popover className="bg-surface border border-border rounded-xl shadow-custom mt-1 overflow-hidden">
+                    <ListBox className="text-on-surface p-1">
                       <ListBox.Item
                         id="Bus"
                         textValue="Bus"
-                        className="hover:bg-pink-500/20 rounded-lg px-3 py-2 cursor-pointer transition-colors"
+                        className="hover:bg-surface-container rounded-lg px-3 py-2 cursor-pointer transition-colors"
                       >
-                        <span className="text-sm font-medium text-white">
-                          Bus
-                        </span>
+                        <span className="text-sm">Bus</span>
                       </ListBox.Item>
                       <ListBox.Item
                         id="Train"
                         textValue="Train"
-                        className="hover:bg-pink-500/20 rounded-lg px-3 py-2 cursor-pointer transition-colors"
+                        className="hover:bg-surface-container rounded-lg px-3 py-2 cursor-pointer transition-colors"
                       >
-                        <span className="text-sm font-medium text-white">
-                          Train
-                        </span>
+                        <span className="text-sm">Train</span>
                       </ListBox.Item>
                       <ListBox.Item
                         id="Flight"
                         textValue="Flight"
-                        className="hover:bg-pink-500/20 rounded-lg px-3 py-2 cursor-pointer transition-colors"
+                        className="hover:bg-surface-container rounded-lg px-3 py-2 cursor-pointer transition-colors"
                       >
-                        <span className="text-sm font-medium text-white">
-                          Flight
-                        </span>
+                        <span className="text-sm">Flight</span>
                       </ListBox.Item>
                     </ListBox>
                   </Select.Popover>
@@ -278,7 +235,7 @@ console.log(payload);
               </div>
             </div>
 
-            {/* Destination Node Matrix */}
+            {/* Route */}
             <div className="grid grid-cols-1 md:grid-cols-7 gap-4 items-end">
               <div className="md:col-span-3 flex flex-col gap-1">
                 <label className="text-on-surface-variant font-medium text-sm mb-1">
@@ -288,10 +245,7 @@ console.log(payload);
                   required
                   name="departureCity"
                   placeholder="Departure City"
-                  classNames={{
-                    inputWrapper:
-                      "bg-surface-container-low border-border hover:border-outline-variant focus-within:!border-primary text-on-surface h-12",
-                  }}
+                  className="bg-surface-container-low border-border hover:border-outline-variant focus-within:!border-primary text-on-surface h-12"
                   variant="bordered"
                 />
               </div>
@@ -299,7 +253,7 @@ console.log(payload);
                 <Button
                   isIconOnly
                   type="button"
-                  className="bg-surface-container border border-border hover:bg-surface-container-low text-primary transition-colors rounded-xl h-12 w-12 rotate-90 md:rotate-0"
+                  className="bg-[var(--surface-container)] border border-[var(--outline-variant)] hover:bg-surface-container-low text-primary transition-colors rounded-xl h-12 w-12 rotate-90 md:rotate-0"
                 >
                   <BsArrowLeftRight className="w-4 h-4" />
                 </Button>
@@ -312,15 +266,13 @@ console.log(payload);
                   required
                   name="destinationCity"
                   placeholder="Destination City"
-                  classNames={{
-                    inputWrapper:
-                      "bg-surface-container-low border-border hover:border-outline-variant focus-within:!border-primary text-on-surface h-12",
-                  }}
+                  className="bg-surface-container-low border-border hover:border-outline-variant focus-within:!border-primary text-on-surface h-12"
                   variant="bordered"
                 />
               </div>
             </div>
 
+            {/* Date & Time */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="flex flex-col gap-1">
                 <label className="text-on-surface-variant font-medium text-sm mb-1">
@@ -331,10 +283,7 @@ console.log(payload);
                   name="departureDate"
                   type="date"
                   placeholder="mm/dd/yyyy"
-                  classNames={{
-                    inputWrapper:
-                      "bg-surface-container-low border-border hover:border-outline-variant focus-within:!border-primary text-on-surface h-12 data-[has-value=false]:text-on-surface-variant",
-                  }}
+                  className="bg-surface-container-low border-border hover:border-outline-variant focus-within:!border-primary text-on-surface h-12 data-[has-value=false]:text-on-surface-variant"
                   variant="bordered"
                 />
               </div>
@@ -347,16 +296,13 @@ console.log(payload);
                   name="departureTime"
                   type="time"
                   placeholder="--:-- --"
-                  classNames={{
-                    inputWrapper:
-                      "bg-surface-container-low border-border hover:border-outline-variant focus-within:!border-primary text-on-surface h-12",
-                  }}
+                  className="bg-surface-container-low border-border hover:border-outline-variant focus-within:!border-primary text-on-surface h-12"
                   variant="bordered"
                 />
               </div>
             </div>
 
-            {/* Perks & Amenities Section */}
+            {/* Perks */}
             <div className="space-y-2">
               <label className="text-on-surface-variant font-medium text-sm block">
                 Perks & Amenities
@@ -410,10 +356,10 @@ console.log(payload);
             </div>
           </div>
 
-          {/* Right Column Fields */}
+          {/* Right Column */}
           <div className="lg:col-span-5 flex flex-col justify-between h-full space-y-6">
             <div className="space-y-5 md:space-y-6">
-              {/* Asset Upload Tracking Section */}
+              {/* Image Upload */}
               <div className="space-y-2">
                 <label className="text-on-surface-variant font-medium text-sm block">
                   Ticket Image
@@ -438,7 +384,6 @@ console.log(payload);
                     SVG, PNG, JPG (max 2MB)
                   </p>
 
-                  {/* Operation Floating Status Container */}
                   {fileName && (
                     <div className="absolute inset-x-4 bottom-4 bg-surface border border-border rounded-xl p-3 flex items-center justify-between gap-3 z-20 shadow-custom animate-in fade-in zoom-in-95 duration-150">
                       <div className="flex items-center gap-3 overflow-hidden">
@@ -447,8 +392,8 @@ console.log(payload);
                             <Image
                               src={ticketImageUrl}
                               alt="Preview"
-                             height={50}
-                             width={50}
+                              height={50}
+                              width={50}
                               className="w-full h-full object-cover"
                             />
                           ) : (
@@ -477,7 +422,7 @@ console.log(payload);
                 </div>
               </div>
 
-              {/* Vendor Signature Segment Box */}
+              {/* Vendor Info */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="flex flex-col gap-1">
                   <label className="text-on-surface-variant font-medium text-sm mb-1">
@@ -486,13 +431,9 @@ console.log(payload);
                   <Input
                     required
                     defaultValue={name}
-
                     disabled
                     placeholder="Alex's Travel Agency"
-                    classNames={{
-                      inputWrapper:
-                        "bg-surface-container-low border-border hover:border-outline-variant focus-within:!border-primary text-on-surface h-12",
-                    }}
+                    className="bg-surface-container-low border-border hover:border-outline-variant focus-within:!border-primary text-on-surface h-12"
                     variant="bordered"
                   />
                 </div>
@@ -503,20 +444,16 @@ console.log(payload);
                   <Input
                     required
                     defaultValue={email}
-                    
                     type="email"
                     disabled
-                    classNames={{
-                      inputWrapper:
-                        "bg-surface-container-low border-border hover:border-outline-variant focus-within:!border-primary text-on-surface h-12",
-                    }}
+                    className="bg-surface-container-low border-border hover:border-outline-variant focus-within:!border-primary text-on-surface h-12"
                     variant="bordered"
                   />
                 </div>
               </div>
             </div>
 
-            {/* Bottom Form Action/Notice Block */}
+            {/* Submit */}
             <div className="pt-4 lg:pt-0">
               <div className="bg-blue-500/5 dark:bg-blue-500/10 border border-blue-500/20 rounded-xl p-4 flex items-start gap-3 mb-4 text-left">
                 <span className="text-blue-500 text-base select-none mt-0.5">
@@ -537,7 +474,7 @@ console.log(payload);
                 type="submit"
                 isLoading={loading}
                 disabled={uploadingImage}
-                className="w-full bg-primary hover:opacity-90 disabled:opacity-50 text-white dark:text-background font-bold text-sm h-14 rounded-xl flex items-center justify-center gap-2 shadow-lg transition-transform active:scale-[0.99]"
+                className="w-full bg-purple-700 font-bold text-sm h-14 rounded-xl flex items-center justify-center gap-2 shadow-lg transition-transform active:scale-[0.99]"
               >
                 {!loading && (
                   <BiPaperPlane className="text-lg rotate-45 mb-0.5" />
