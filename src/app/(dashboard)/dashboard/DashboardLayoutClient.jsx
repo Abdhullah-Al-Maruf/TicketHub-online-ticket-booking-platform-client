@@ -8,10 +8,10 @@ export default function DashboardLayoutClient({ children, user }) {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[var(--background)] text-[var(--on-surface)]">
+    <div className="min-h-screen flex flex-col  text-[var(--on-surface)]">
       
       {/* Standalone Hamburger Trigger (Only visible on mobile/tablet screens) */}
-      <div className="lg:hidden flex items-center p-4 border-b border-[var(--outline-variant)] bg-[var(--surface-container)] sticky top-0 z-40">
+      <div className="lg:hidden flex items-center p-4 border-b border-[var(--outline-variant)]  sticky top-0 z-40">
         <button
           onClick={() => setIsMobileOpen(true)}
           className="p-2 text-[var(--outline)] hover:text-[var(--on-surface)] hover:bg-[var(--surface-container-high)] rounded-md transition-all"

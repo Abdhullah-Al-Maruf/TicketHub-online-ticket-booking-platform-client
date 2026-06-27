@@ -1,6 +1,6 @@
 "use client";
-
-import { Drawer, Button as HeroButton, Separator } from "@heroui/react";
+import { createPortal } from "react-dom";
+import { Button as HeroButton, Separator } from "@heroui/react";
 import { FaHistory, FaHome, FaUsers } from "react-icons/fa";
 import { FaCodePullRequest, FaTicketSimple } from "react-icons/fa6";
 import { GiTakeMyMoney } from "react-icons/gi";
@@ -29,7 +29,7 @@ function NavLinks({ items, onMobileClose }) {
             onClick={onMobileClose}
             className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
               isActive
-                ? "border bg-pink-200/20 border-[var(--outline-variant)] text-[var(--on-primary)]"
+                ? "border bg-purple-800/20 border-[var(--outline-variant)] text-black dark:text-white "
                 : "text-[var(--on-surface-variant)] hover:bg-[var(--surface-container-high)] hover:text-[var(--on-surface)]"
             }`}
             href={item.href}
@@ -195,24 +195,46 @@ export function Sidebar({ isMobileOpen, onMobileClose, user }) {
       </aside>
 
       {/* Mobile View Drawer System */}
-      <Drawer isOpen={isMobileOpen} onOpenChange={onMobileClose}>
-        <Drawer.Backdrop>
-          <Drawer.Content
-            placement="left"
-            className="bg-[var(--surface-container)] max-w-xs p-0"
-          >
-            <Drawer.Dialog className="h-full">
-              <Drawer.CloseTrigger
-                onClick={onMobileClose}
-                className="top-4 right-4 z-50 text-[var(--on-surface)]"
-              />
-              <Drawer.Body className="p-0 h-full overflow-y-auto">
-                {navContent}
-              </Drawer.Body>
-            </Drawer.Dialog>
-          </Drawer.Content>
-        </Drawer.Backdrop>
-      </Drawer>
+{/* Mobile Drawer – custom implementation */}
+{isMobileOpen && (
+  <>
+    {/* Backdrop – full screen, above everything */}
+    {typeof document !== "undefined" &&
+      createPortal(
+        <div
+          className="fixed inset-0 z-[9999] bg-black/20 transition-opacity"
+          onClick={onMobileClose}
+          aria-hidden="true"
+        />,
+        document.body
+      )}
+
+    {/* Drawer Panel – slides in from left */}
+    <div
+      className={`
+        fixed top-0 left-0 h-full w-64 max-w-[80vw] z-[10000]
+        bg-[var(--surface-container)] shadow-xl
+        transform transition-transform duration-300 ease-in-out
+        ${isMobileOpen ? "translate-x-0" : "-translate-x-full"}
+        overflow-y-auto
+      `}
+      role="dialog"
+      aria-modal="true"
+    >
+      {/* Close button (optional) – you already have one inside navContent, but adding one here for clarity */}
+      <button
+        onClick={onMobileClose}
+        className="absolute top-4 right-4 p-2 text-[var(--on-surface)] hover:bg-[var(--surface-container-high)] rounded-md z-50"
+        aria-label="Close drawer"
+      >
+        ✕
+      </button>
+
+      {/* The same navContent you already have */}
+      {navContent}
+    </div>
+  </>
+)}
     </>
   );
 }

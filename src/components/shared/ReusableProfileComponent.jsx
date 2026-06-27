@@ -88,7 +88,7 @@ export default function ReusableProfileComponent({ user }) {
   };
 
   return (
-    <div className="max-w-md mx-auto bg-[var(--surface)] border border-[var(--outline-variant)] rounded-2xl p-6 shadow-sm flex flex-col items-center text-center mt-10">
+    <div className=" max-w-[800px]  mx-auto bg-[var(--surface)] border border-[var(--outline-variant)] rounded-2xl p-6 shadow-sm flex flex-col justify-center items-center text-center mt-50">
       {/* Avatar Image Frame */}
       <div
         className={`relative group w-28 h-28 rounded-full mb-4 ring-4 ring-[var(--primary-container)] overflow-hidden bg-[var(--surface-container-low)] flex items-center justify-center ${
