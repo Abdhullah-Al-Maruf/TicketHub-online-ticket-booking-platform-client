@@ -1,5 +1,6 @@
+"use server"
 // tickets related actions 
-
+import { revalidatePath } from "next/cache";
 import { serverMutation } from "../core/server";
 // for vendor tickets add 
 export const addTicket= async (ticketData)=>{
@@ -15,5 +16,6 @@ export const updateTicket= async (ticketData,ticketId)=>{
 
 export const deleteTicket= async (ticketId)=>{
     const res= await serverMutation(`/api/delete-tickets/${ticketId}`,{},"DELETE");
+    revalidatePath("/dashboard/vendor/my-tickets");
     return res;
 }
