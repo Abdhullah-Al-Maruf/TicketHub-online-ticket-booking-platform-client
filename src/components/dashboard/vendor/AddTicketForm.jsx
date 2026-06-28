@@ -11,6 +11,8 @@ import { FiUploadCloud } from "react-icons/fi";
 import { IoChevronDownCircleOutline } from "react-icons/io5";
 import { authClient } from "@/lib/auth-client";
 import Image from "next/image";
+import { addTicket } from "@/lib/action/tickets";
+import { redirect } from "next/navigation";
 
 export default function AddTicketForm() {
   const { data: session } = authClient.useSession();
@@ -112,8 +114,19 @@ export default function AddTicketForm() {
       },
       status: "pending",
     };
-    console.log(payload);
+  
     // ... API call remains commented out ...
+    const result=await addTicket(payload);
+    if(result?.success){
+      toast.success("Ticket submitted for approval successfully!");
+      redirect("/dashboard/vendor/my-tickets");
+    
+    }
+else{
+  toast.error(result?.message || "Failed to submit ticket for approval.");
+}
+
+  console.log(result);
   };
 
   return (
