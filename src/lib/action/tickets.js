@@ -9,8 +9,9 @@ export const addTicket= async (ticketData)=>{
 }
 
 
-export const updateTicket= async (ticketData,ticketId)=>{
+export const updateTicket= async (ticketId,ticketData)=>{
     const res= await serverMutation(`/api/update-tickets/${ticketId}`,ticketData,"PATCH");
+    revalidatePath("/dashboard/vendor/my-tickets");
     return res;
 }
 

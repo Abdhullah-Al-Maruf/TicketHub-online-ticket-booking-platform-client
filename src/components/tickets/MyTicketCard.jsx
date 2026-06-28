@@ -17,13 +17,14 @@ import { HiOutlinePencil, HiOutlineTrash } from "react-icons/hi2";
 import Image from "next/image";
 import { useState } from "react";
 import DeleteTicketModal from "../dashboard/vendor/DeleteTicketModal";
+import UpdateTicketModal from "../dashboard/vendor/UpdateTicketModal";
 
-export default function MyTicketCard({ ticket, onUpdate }) {
+export default function MyTicketCard({ ticket }) {
   const currentTicket = ticket;
-  
+
   // State controller variable to handle the open/close state of the delete modal
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
-
+  const [isUpdateOpen, setIsUpdateOpen] = useState(false);
   const getTransportIcon = () => {
     const type = currentTicket?.transportType?.toLowerCase();
 
@@ -171,7 +172,7 @@ export default function MyTicketCard({ ticket, onUpdate }) {
             <Button
               isIconOnly
               className="bg-white/5 hover:bg-purple-600/20 text-slate-400 hover:text-purple-400 border border-[var(--outline-variant)]"
-              onPress={() => onUpdate?.(currentTicket?._id || currentTicket?.id)}
+              onPress={() => setIsUpdateOpen(true)}
             >
               <HiOutlinePencil className="text-lg" />
             </Button>
@@ -189,10 +190,17 @@ export default function MyTicketCard({ ticket, onUpdate }) {
       </Card>
 
       {/* Renders safely outside the main layout container box */}
-      <DeleteTicketModal 
-        isDeleteOpen={isDeleteOpen} 
-        setIsDeleteOpen={setIsDeleteOpen} 
-        id={currentTicket?._id || currentTicket?.id} 
+
+      <UpdateTicketModal
+        isUpdateOpen={isUpdateOpen}
+        setIsUpdateOpen={setIsUpdateOpen}
+        ticket={currentTicket} // Pass down the complete ticket data payload object
+      />
+
+      <DeleteTicketModal
+        isDeleteOpen={isDeleteOpen}
+        setIsDeleteOpen={setIsDeleteOpen}
+        id={currentTicket?._id || currentTicket?.id}
       />
     </>
   );
