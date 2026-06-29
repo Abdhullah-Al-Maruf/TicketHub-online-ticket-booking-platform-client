@@ -7,3 +7,8 @@ const res= await serverFetch(`/api/tickets/vendor/${emailId}`)
 
 return res.result;
 }
+export const getAllTickets=async()=>{
+const res= await serverFetch("/api/tickets")
+
+return res.result;
+}

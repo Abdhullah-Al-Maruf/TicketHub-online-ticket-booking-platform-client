@@ -1,9 +1,12 @@
+import AdvertisedTable from '@/components/dashboard/admin/AdvertisedTable';
+import { getAllTickets } from '@/lib/api/tickets';
 import React from 'react';
 
-const advertiseMentPage = () => {
+const advertiseMentPage = async() => {
+    const tickets=await getAllTickets();
     return (
         <div>
-          advertiseMentPage  
+     <AdvertisedTable tickets={tickets}/>  
         </div>
     );
 };
