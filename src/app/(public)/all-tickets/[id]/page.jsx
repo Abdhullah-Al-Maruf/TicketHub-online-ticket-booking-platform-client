@@ -12,11 +12,10 @@ import {
 import TicketDetailsClient from "./TicketDetailsClient";
 import { getTicketById } from "@/lib/api/tickets";
 
-
 export default async function TicketDetailsPage({ params }) {
   const { id } = await params;
-console.log(id);
-  // Fetch ticket
+  console.log(id);
+
   let ticket = null;
   try {
     ticket = await getTicketById(id);
@@ -158,6 +157,7 @@ console.log(id);
                 <TicketDetailsClient departureDateTime={departureDateTime?.toISOString()} isDeparted={isDeparted} />
               </div>
 
+              {/* 👇 UPDATED: pass vendor details */}
               <TicketDetailsClient
                 ticketId={ticket._id}
                 quantityAvailable={quantityAvailable}
@@ -168,6 +168,10 @@ console.log(id);
                 to={to}
                 date={date}
                 time={time}
+                transportType={ticket.transportType}
+                vendorName={ticket.vendor?.name || ""}
+                vendorEmail={ticket.vendor?.email || ""}
+                image={ticket.imageUrl}
                 isButton
               />
             </Card>
