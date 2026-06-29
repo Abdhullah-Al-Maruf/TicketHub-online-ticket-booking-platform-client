@@ -7,10 +7,27 @@ const res= await serverFetch(`/api/tickets/vendor/${emailId}`)
 
 return res.result;
 }
+// for user dashboard get all his booking
+export const getBookings = async (email) => {
+  const res = await serverFetch(`/api/bookings/${email}`);
+  return res.result;
+};
+
+
+
 export const getAllTickets=async(page=1,limit=10)=>{
 const res= await serverFetch(`/api/tickets?page=${page}&limit=${limit}`);
 return res;
 }
+
+
+
+export const getTicketById = async (id) => {
+
+  const res = await serverFetch(`/api/ticket/${id}`);
+   
+  return res.result
+};
 
 export const getActiveAdCount = async () => {
   const res = await serverFetch("/api/tickets/count-active");

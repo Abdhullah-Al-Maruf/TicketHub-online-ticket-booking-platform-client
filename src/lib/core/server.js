@@ -23,8 +23,9 @@ export const serverMutation = async (path, data, method = "POST") => {
 
 
 export const serverFetch=async(path)=>{
-
+  console.log("Fetching:", `${baseUrl}${path}`);
     const res=await fetch(`${baseUrl}${path}`)
+      console.log("Status:", res.status);
     return handleStatusCode(res)
 }
 

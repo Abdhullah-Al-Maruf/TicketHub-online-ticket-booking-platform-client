@@ -8,6 +8,11 @@ export const addTicket= async (ticketData)=>{
     return res;
 }
 
+// for user add booking
+export const addBooking = async (bookingData) => {
+  const res = await serverMutation("/api/bookings", bookingData);
+  return res;
+};
 
 export const updateTicket= async (ticketId,ticketData)=>{
     const res= await serverMutation(`/api/update-tickets/${ticketId}`,ticketData,"PATCH");

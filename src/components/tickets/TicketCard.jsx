@@ -50,7 +50,7 @@ export default function TicketCard({ ticket }) {
 
   // ─── Extract data ───────────────────────────────────────────
   // Handle nested _id format: { "$oid": "..." }
-  const ticketId = currentTicket._id?.$oid || currentTicket._id;
+  const ticketId = currentTicket._id;
 
   // Image
   const imageUrl =
@@ -176,7 +176,7 @@ export default function TicketCard({ ticket }) {
             per ticket
           </span>
         </div>
-        <Link href={`/tickets/${ticketId}`}>
+        <Link href={`/all-tickets/${ticketId}`}>
           <Button className="w-full bg-gradient-to-r from-[#f3a] to-[#b76dff] text-[var(--on-primary)] font-bold py-2.5 rounded-lg">
             See Details
           </Button>
