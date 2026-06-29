@@ -1,0 +1,8 @@
+import { serverFetch } from "../core/server";
+
+export const getUserBookings=async(emailId)=>{
+const res= await serverFetch(`/api/bookings/${emailId}`)
+
+return res.result;
+}
+// 
