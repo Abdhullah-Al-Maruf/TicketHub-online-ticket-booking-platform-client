@@ -1,36 +1,473 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🎫 TicketHub
 
-## Getting Started
+A full-stack MERN ticket marketplace where vendors can sell transport tickets, users can book and purchase tickets, and administrators manage the entire platform.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🚀 Live Demo
+
+* **Frontend:** `https://your-frontend-url.vercel.app`
+* **Backend:** `https://your-backend-url.vercel.app`
+
+---
+
+## 📌 Project Overview
+
+TicketHub is a transport ticket booking platform that allows vendors to publish tickets for Bus, Train, Flight, and Launch services. Users can browse available tickets, submit booking requests, complete secure payments using Stripe Checkout, and manage their bookings. Administrators oversee users, vendors, ticket approvals, advertisements, and platform security.
+
+---
+
+# ✨ Features
+
+## 👤 User
+
+* Register & Login
+* Browse approved tickets
+* View ticket details
+* Book tickets
+* View booking history
+* Pay approved bookings using Stripe Checkout
+* Cancel unpaid bookings
+* View payment status
+
+---
+
+## 🧑‍💼 Vendor
+
+* Add tickets
+* Update own tickets
+* Delete own tickets
+* View own tickets
+* Receive booking requests
+* Approve booking requests
+* Reject booking requests
+* View revenue dashboard
+
+---
+
+## 👨‍💻 Admin
+
+### User Management
+
+* View all users
+* Change user roles
+* Mark vendor as Fraud
+* Remove Fraud status
+
+### Ticket Management
+
+* Approve tickets
+* Reject tickets
+* Advertise tickets
+* Remove advertisement
+* Maximum 6 advertised tickets
+* View all submitted tickets
+
+---
+
+## 🚫 Fraud Protection
+
+When a vendor is marked as fraud:
+
+* Cannot add new tickets
+* Cannot edit tickets
+* Cannot delete tickets
+* All tickets become invisible
+* Tickets disappear from public pages
+* Add Ticket form is hidden from the vendor dashboard
+
+---
+
+## 💳 Payment
+
+* Stripe Checkout
+* Secure payment processing
+* Payment history
+* Vendor revenue calculation
+
+---
+
+# 🛠 Tech Stack
+
+### Frontend
+
+* Next.js 15
+* React.js
+* Tailwind CSS v4
+* HeroUI
+* React Query
+* React Hook Form
+* Zod
+* Better Auth
+* Stripe
+
+### Backend
+
+* Node.js
+* Express.js
+* MongoDB
+* JWT
+* Better Auth
+* Stripe
+* CORS
+
+---
+
+# 📂 Folder Structure
+
+```text
+tickethub/
+
+├── client/
+│   ├── app/
+│   ├── components/
+│   ├── hooks/
+│   ├── lib/
+│   └── public/
+│
+├── server/
+│   ├── middleware/
+│   ├── routes/
+│   ├── utils/
+│   └── index.js
+│
+└── README.md
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+# 🗄 Database Collections
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Users
 
-## Learn More
+```js
+{
+  name,
+  email,
+  role,
+  isFraud,
+  createdAt,
+  updatedAt
+}
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Tickets
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```js
+{
+  title,
+  image,
+  transportType,
+  pricePerSeat,
+  quantityAvailable,
 
-## Deploy on Vercel
+  vendor:{
+      name,
+      email
+  },
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+  route,
+  schedule,
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+  status,
+  advertised,
+  isVisible,
+
+  createdAt,
+  updatedAt
+}
+```
+
+---
+
+## Bookings
+
+```js
+{
+  ticketId,
+  ticketTitle,
+  image,
+  transportType,
+
+  quantity,
+  pricePerSeat,
+  totalPrice,
+
+  vendor,
+  user,
+
+  route,
+  schedule,
+
+  status,
+  paymentStatus,
+
+  createdAt,
+  updatedAt
+}
+```
+
+---
+
+## Payments
+
+```js
+{
+  bookingId,
+  transactionId,
+  amount,
+  paymentStatus,
+  paidAt
+}
+```
+
+---
+
+# 🔄 Workflow
+
+```text
+Vendor
+   │
+   ▼
+Add Ticket
+   │
+   ▼
+Pending Approval
+   │
+   ▼
+Admin Approves
+   │
+   ▼
+Public Ticket Page
+   │
+   ▼
+User Booking Request
+   │
+   ▼
+Vendor Approval
+   │
+   ▼
+Stripe Payment
+   │
+   ▼
+Revenue Dashboard
+```
+
+---
+
+# 🔐 Authentication & Authorization
+
+* Better Auth Authentication
+* JWT Authorization
+* Protected Routes
+* Role-based Access Control
+* Admin Route Protection
+* Vendor Route Protection
+* User Route Protection
+
+---
+
+# 📡 API Endpoints
+
+## Public APIs
+
+```http
+GET /api/tickets
+
+GET /api/ticket/:id
+
+GET /api/home/advertised
+```
+
+---
+
+## User APIs
+
+```http
+POST /api/booking
+
+GET /api/bookings/:email
+
+PATCH /api/bookings/:id/cancel
+```
+
+---
+
+## Vendor APIs
+
+```http
+POST /api/add-ticket
+
+GET /api/tickets/vendor/:email
+
+PATCH /api/tickets/:id
+
+DELETE /api/tickets/:id
+
+GET /api/vendor/bookings/:email
+
+PATCH /api/vendor/bookings/:id/approve
+
+PATCH /api/vendor/bookings/:id/reject
+```
+
+---
+
+## Admin APIs
+
+```http
+GET /api/admin/users
+
+PATCH /api/admin/users/:id/fraud
+
+PATCH /api/admin/users/:id/unfraud
+
+GET /api/admin/tickets
+
+PATCH /api/admin/tickets/:id/approve
+
+PATCH /api/admin/tickets/:id/reject
+
+PATCH /api/admin/tickets/:id/advertise
+
+PATCH /api/admin/tickets/:id/unadvertise
+```
+
+---
+
+# 💳 Stripe Payment Flow
+
+```text
+User
+
+↓
+
+Book Ticket
+
+↓
+
+Vendor Approves
+
+↓
+
+Click Pay Now
+
+↓
+
+Stripe Checkout
+
+↓
+
+Payment Successful
+
+↓
+
+Booking Status Updated
+
+↓
+
+Vendor Revenue Updated
+```
+
+---
+
+# ⚙️ Installation
+
+## Clone Repository
+
+```bash
+git clone https://github.com/your-username/tickethub.git
+```
+
+### Frontend
+
+```bash
+cd client
+
+npm install
+
+npm run dev
+```
+
+### Backend
+
+```bash
+cd server
+
+npm install
+
+npm start
+```
+
+---
+
+# 🔑 Environment Variables
+
+## Frontend (.env.local)
+
+```env
+NEXT_PUBLIC_API_URL=
+
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=
+```
+
+---
+
+## Backend (.env)
+
+```env
+PORT=
+
+MONGODB_URI=
+
+JWT_SECRET=
+
+BETTER_AUTH_SECRET=
+
+STRIPE_SECRET_KEY=
+```
+
+---
+
+# 📸 Screenshots
+
+Add screenshots of:
+
+* Home Page
+* All Tickets
+* Ticket Details
+* Booking Page
+* User Dashboard
+* Vendor Dashboard
+* Admin Dashboard
+
+---
+
+# 🚀 Future Improvements
+
+* Ticket Search & Filtering
+* Email Notifications
+* Booking Invoice
+* PDF Ticket Download
+* Admin Analytics Dashboard
+* Vendor Sales Charts
+* Wishlist
+* Reviews & Ratings
+
+---
+
+# 👨‍💻 Author
+
+**Md Maruf**
+
+Diploma in Computer Science & Technology (CST)
+
+Bangladesh
+
+---
+
+# 📄 License
+
+This project is developed for educational and portfolio purposes.
