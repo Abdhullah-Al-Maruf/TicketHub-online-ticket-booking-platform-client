@@ -126,7 +126,7 @@ else{
   toast.error(result?.message || "Failed to submit ticket for approval.");
 }
 
-  console.log(result);
+
   };
 
   return (

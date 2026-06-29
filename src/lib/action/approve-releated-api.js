@@ -12,3 +12,4 @@ export const rejectTicket = async (ticketId) => {
     revalidatePath("/dashboard/admin/manage-tickets");
     return res;
 }
+

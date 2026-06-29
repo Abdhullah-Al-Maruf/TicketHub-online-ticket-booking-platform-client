@@ -1,9 +1,13 @@
+import AdminUsersTable from '@/components/dashboard/admin/AdminUsersTable';
+import { getUsers } from '@/lib/api/allUsersAdmin';
 import React from 'react';
 
-const manageUserPage = () => {
+const manageUserPage = async() => {
+const users= await getUsers();
+
     return (
         <div>
-            manageUserPage
+      <AdminUsersTable users={users}/>
         </div>
     );
 };
