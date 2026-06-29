@@ -29,6 +29,10 @@ const handleReject = (bookingId) => {
 };
     return (
         <div>
+
+          {
+            
+          }
         <RequestedBookingsTable
     bookings={bookings}
     onAccept={handleAccept}
