@@ -6,7 +6,7 @@ A full-stack MERN ticket marketplace where vendors can sell transport tickets, u
 
 ## 🚀 Live Demo
 
-* **Frontend:** `https://ticket-hub-client-pink.vercel.app/`
+* **Frontend:** https://ticket-hub-client-pink.vercel.app/
 
 
 ---
