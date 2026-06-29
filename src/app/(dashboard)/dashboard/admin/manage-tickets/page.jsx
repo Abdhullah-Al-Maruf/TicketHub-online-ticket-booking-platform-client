@@ -1,9 +1,15 @@
+
+import RequestedTicketBookingsTable from '@/components/dashboard/admin/RequestedTicketBookingsTable';
+import { getVendorRequestedBooking } from '@/lib/api/vendor_tickets_request';
 import React from 'react';
 
-const manageTicketsPage = () => {
+const manageTicketsPage = async() => {
+const bookings= await getVendorRequestedBooking();
+
     return (
         <div>
-         manageTicketsPage   
+   <RequestedTicketBookingsTable
+   bookings={bookings}/>
         </div>
     );
 };
