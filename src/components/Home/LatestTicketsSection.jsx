@@ -1,8 +1,10 @@
 import React from "react";
 import TicketCard from "../tickets/TicketCard";
-import { demoTickets } from "./FeaturedTicketsSection";
+import { getLatestTickets } from "@/lib/api/public-api-data";
 
-const LatestTicketsSection = () => {
+
+const LatestTicketsSection =async () => {
+  const LatestTickets =await getLatestTickets()
   return (
     <div>
       <div className="text-center mt-30 mb-20 px-4 sm:px-6 lg:px-8">
@@ -15,7 +17,7 @@ const LatestTicketsSection = () => {
         </h2>
       </div>
       <div className="grid  max-w-7xl mx-auto mt-10 md:grid-cols-2   lg:grid-cols-3 gap-6">
-        {demoTickets.map((ticket) => (
+        {LatestTickets.map((ticket) => (
           <TicketCard key={ticket._id} ticket={ticket} />
         ))}
       </div>
