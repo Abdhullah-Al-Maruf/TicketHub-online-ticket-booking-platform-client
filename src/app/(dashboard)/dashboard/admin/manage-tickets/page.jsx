@@ -1,17 +1,11 @@
-
-import RequestedTicketBookingsTable from '@/components/dashboard/admin/RequestedTicketBookingsTable';
 import { getVendorRequestedBooking } from '@/lib/api/vendor_tickets_request';
 import React from 'react';
+import ManageTicketsPage from './ManageTicketsPage';
 
-const manageTicketsPage = async() => {
-const bookings= await getVendorRequestedBooking();
+const ManageTicketsHomePage =async () => {
+const initialBookings = await getVendorRequestedBooking();
 
-    return (
-        <div>
-   <RequestedTicketBookingsTable
-   bookings={bookings}/>
-        </div>
-    );
+    return <ManageTicketsPage initialBookings={initialBookings || []} />
 };
 
-export default manageTicketsPage;
+export default ManageTicketsHomePage;
