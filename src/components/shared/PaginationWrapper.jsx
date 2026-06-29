@@ -1,15 +1,18 @@
-
 "use client";
 
 import { Pagination } from "@heroui/react";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
 export default function PaginationWrapper({ totalPages, currentPage }) {
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams(); // ✅ read current query params
 
   const handlePageChange = (page) => {
-    router.push(`${pathname}?page=${page}`);
+    // ✅ merge existing params with the new page
+    const params = new URLSearchParams(searchParams);
+    params.set("page", page);
+    router.push(`${pathname}?${params.toString()}`);
   };
 
   if (totalPages <= 1) return null;
@@ -45,7 +48,7 @@ export default function PaginationWrapper({ totalPages, currentPage }) {
   const visiblePages = getVisiblePages();
 
   return (
-    <div className="flex  justify-center mt-6">
+    <div className="flex justify-center mt-6">
       <Pagination>
         <Pagination.Content>
           {/* Previous button */}
