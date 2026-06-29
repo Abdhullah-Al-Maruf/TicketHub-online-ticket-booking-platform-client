@@ -17,17 +17,11 @@ import {
 
 import toast from "react-hot-toast";
 import { FaBullhorn, FaEllipsisV, FaTrashAlt } from "react-icons/fa";
-import { deleteTicket } from "@/lib/action/tickets";
+import { advertiseTicket, deleteTicket, unadvertiseTicket } from "@/lib/action/tickets";
 
-// // Import your server actions (create these)
-// import {
-//   advertiseTicket,
-//   unadvertiseTicket,
-//   deleteTicket,
-// } from "@/lib/action/ticket-actions";
+
 
 export default function AdvertisedTable({ tickets = [] }) {
- 
   const onAdvertise = async (ticketId) => {
     const res = await advertiseTicket(ticketId);
     if (res?.success) {
@@ -47,7 +41,6 @@ export default function AdvertisedTable({ tickets = [] }) {
   };
 
   const onDelete = async (ticketId) => {
-  
     const res = await deleteTicket(ticketId);
     if (res?.success) {
       toast.success("Ticket deleted successfully.");

@@ -20,3 +20,14 @@ export const deleteTicket= async (ticketId)=>{
     revalidatePath("/dashboard/vendor/my-tickets");
     return res;
 }
+export const advertiseTicket= async (ticketId)=>{
+    const res= await serverMutation(`/api/admin/tickets/${ticketId}/advertise`,{},"PATCH");
+    revalidatePath("/dashboard/admin/manage-users");
+    return res;
+}
+export const unadvertiseTicket= async (ticketId)=>{
+    const res= await serverMutation(`/api/admin/tickets/${ticketId}/unadvertise`,{},"PATCH");
+    revalidatePath("/dashboard/admin/manage-users");
+    return res;
+}
+
