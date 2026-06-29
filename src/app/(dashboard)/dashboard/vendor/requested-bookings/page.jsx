@@ -1,45 +1,35 @@
-// make the componetnt server by a wrapper 
-"use client" 
-import RequestedBookingsTable from "@/components/dashboard/vendor/RequestedBookingsTable";
+import React from "react";
+import RequestedBookingPage from "./RequestedBookingPage";
+import { getUserSession } from "@/lib/core/session";
 
+const RequestedBookingHome = async () => {
+  const user = await getUserSession();
+  const isFraud = user?.isFraud;
 
-const requestedBookingPage = () => {
-const bookings = [
-  {
-    id: "1",
-    userName: "John Doe",
-    userEmail: "john@example.com", // fallback if name missing
-    ticketTitle: "Luxury Coach to Cox's Bazar",
-    quantity: 2,
-    unitPrice: 1850,
-    totalPrice: 3700,
-    requestedDate: "Oct 24",
-    status: "pending", // "pending" | "approved" | "rejected"
-  },
-  // ...
-];
+  return (
+    <>
+      {isFraud ? (
+        <div className="min-h-screen   flex items-center justify-center">
+          <div className="max-w-lg text-center border border-red-300 rounded-xl p-8 bg-red-500/20">
+            <h2 className="text-2xl font-bold text-red-600">
+              Account Restricted
+            </h2>
 
+            <p className="mt-4  text-red-600">
+              Your vendor account has been marked as fraud.
+            </p>
 
-const handleAccept = (bookingId) => {
-  // Call API to accept booking
-};
-
-const handleReject = (bookingId) => {
-  // Call API to reject booking
-};
-    return (
-        <div>
-
-          {
-            
-          }
-        <RequestedBookingsTable
-    bookings={bookings}
-    onAccept={handleAccept}
-    onReject={handleReject}
-  />
+            <p className="mt-2  text-red-600">
+              You cannot add new tickets. Please contact the administrator if
+              you believe this is a mistake.
+            </p>
+          </div>
         </div>
-    );
+      ) : (
+        <RequestedBookingPage />
+      )}
+    </>
+  );
 };
 
-export default requestedBookingPage;
+export default RequestedBookingHome;
