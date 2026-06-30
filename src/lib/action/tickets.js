@@ -11,6 +11,7 @@ export const addTicket= async (ticketData)=>{
 // for user add booking
 export const addBooking = async (bookingData) => {
   const res = await serverMutation("/api/bookings", bookingData);
+      revalidatePath("/dashboard/user/my-bookings");
   return res;
 };
 

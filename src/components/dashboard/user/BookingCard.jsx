@@ -17,10 +17,6 @@ import {
   FaShip,
   FaPlane,
 } from "react-icons/fa";
-// import { loadStripe } from "@stripe/stripe-js";
-
-// Load Stripe (use your publishable key)
-// const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
 export default function BookingCard({ booking }) {
   const {
@@ -32,239 +28,251 @@ export default function BookingCard({ booking }) {
     schedule,
     quantity,
     totalPrice,
-    pricePerSeat,
     status,
     paymentStatus,
-    vendor,
-    ticketId,
   } = booking;
 
-  // ─── Countdown logic ──────────────────────────────────────────
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
     minutes: 0,
     seconds: 0,
   });
+
   const [isDeparted, setIsDeparted] = useState(false);
 
   useEffect(() => {
-  
-    const dateStr = schedule.date;
-    const timeStr = schedule.time;
+    const dateStr = schedule?.date;
+    const timeStr = schedule?.time;
+
     if (!dateStr || !timeStr) return;
 
-
     const target = new Date(`${dateStr} ${timeStr}`);
+
     if (isNaN(target.getTime())) return;
 
     const updateCountdown = () => {
       const now = Date.now();
       const diff = Math.max(0, target.getTime() - now);
+
       if (diff === 0) {
         setIsDeparted(true);
-        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+        setTimeLeft({
+          days: 0,
+          hours: 0,
+          minutes: 0,
+          seconds: 0,
+        });
         return;
       }
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-      setTimeLeft({ days, hours, minutes, seconds });
+
+      setTimeLeft({
+        days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+        minutes: Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)),
+        seconds: Math.floor((diff % (1000 * 60)) / 1000),
+      });
     };
 
     updateCountdown();
+
     const interval = setInterval(updateCountdown, 1000);
+
     return () => clearInterval(interval);
   }, [schedule]);
 
-  // ─── Status badge ────────────────────────────────────────────
   const getStatusBadge = () => {
     switch (status) {
       case "pending":
         return (
-          <Badge variant="flat" color="warning" className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30">
-            <FaHourglassHalf className="mr-1" /> Pending
+          <Badge
+            variant="flat"
+            color="warning"
+            className="p-2 bg-yellow-500/20 text-yellow-400"
+          >
+            <FaHourglassHalf className="mr-2" />
+            Pending
           </Badge>
         );
+
       case "accepted":
         return (
-          <Badge variant="flat" color="success" className="bg-green-500/20 text-green-400 border-green-500/30">
-            <FaCheckCircle className="mr-1" /> Accepted
+          <Badge
+            variant="flat"
+            color="success"
+            className="p-2 bg-green-500/20 text-green-400"
+          >
+            <FaCheckCircle className="mr-2" />
+            Accepted
           </Badge>
         );
+
       case "rejected":
         return (
-          <Badge variant="flat" color="danger" className="bg-red-500/20 text-red-400 border-red-500/30">
-            <FaTimesCircle className="mr-1" /> Rejected
+          <Badge
+            variant="flat"
+            color="danger"
+            className="p-2 bg-red-500/20 text-red-400"
+          >
+            <FaTimesCircle className="mr-2" />
+            Rejected
           </Badge>
         );
-      case "paid":
-        return (
-          <Badge variant="flat" color="primary" className="bg-blue-500/20 text-blue-400 border-blue-500/30">
-            <FaCheckCircle className="mr-1" /> Paid
-          </Badge>
-        );
+
       default:
         return null;
     }
   };
 
-  // // ─── Handle Pay Now ──────────────────────────────────────────
-  // const handlePayNow = async () => {
-  //   // todo:make the payment api 
-  //   try {
-  //     const stripe = await stripePromise;
-  //     // Call your backend to create a Stripe Checkout session
-  //     const response = await fetch("/api/create-checkout-session", {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify({
-  //         bookingId: _id,
-  //         ticketTitle,
-  //         totalPrice,
-  //         quantity,
-  //         pricePerSeat,
-  //         vendorEmail: vendor?.email,
-  //         userEmail: booking.user?.email, // optional
-  //       }),
-  //     });
-  //     const session = await response.json();
-  //     if (session.id) {
-  //       await stripe.redirectToCheckout({ sessionId: session.id });
-  //     } else {
-  //       console.error("Failed to create checkout session");
-  //     }
-  //   } catch (error) {
-  //     console.error("Payment error:", error);
-  //   }
-  // };
-
-  // ─── Helpers ──────────────────────────────────────────────────
   const getTransportIcon = () => {
-    const type = transportType?.toLowerCase();
-    if (type === "bus") return <FaBus />;
-    if (type === "train") return <FaTrain />;
-    if (type === "launch") return <FaShip />;
-    if (type === "flight") return <FaPlane />;
-    return null;
+    switch (transportType?.toLowerCase()) {
+      case "bus":
+        return <FaBus />;
+
+      case "train":
+        return <FaTrain />;
+
+      case "launch":
+        return <FaShip />;
+
+      case "flight":
+        return <FaPlane />;
+
+      default:
+        return null;
+    }
   };
 
-  // Format date/time for display (already formatted in booking data)
-  const displayDate = schedule.date || "";
-  const displayTime = schedule.time || "";
-
-  // ─── Render ──────────────────────────────────────────────────
   const isExpired = isDeparted;
 
   return (
     <Card
-      className="bg-[var(--surface-container)] border border-[var(--outline-variant)] overflow-hidden h-full flex flex-col rounded-xl"
+      className="bg-[var(--surface-container)] border border-[var(--outline-variant)] overflow-hidden rounded-xl flex flex-col"
       radius="lg"
     >
       {/* Image */}
-      <div className="relative h-44 w-full overflow-hidden rounded-lg">
+      <div className="relative h-44 w-full overflow-hidden">
         <Image
           src={image || "/placeholder-ticket.jpg"}
           alt={ticketTitle}
           fill
           className="object-cover"
         />
+
         <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-        <span className="absolute top-3 left-3 bg-[var(--primary-container)] text-[var(--on-primary-container)] font-semibold text-xs px-3 py-1.5 rounded-lg flex items-center gap-1.5 shadow-sm">
+
+        <span className="absolute top-3 left-3 bg-[var(--primary-container)] text-[var(--on-primary-container)] px-3 py-1 rounded-lg flex items-center gap-2 text-xs font-semibold">
           {getTransportIcon()}
           {transportType}
         </span>
-        {/* Status Badge - top right */}
-        <div className="absolute bottom-5 right-5">
-          {getStatusBadge()}
-        </div>
+
+        <div className="absolute bottom-5 right-5">{getStatusBadge()}</div>
       </div>
 
-      {/* Content */}
       <div className="p-5 flex-grow space-y-4">
-        <h3 className="text-xl font-bold text-[var(--on-surface)] line-clamp-1">
-          {ticketTitle}
-        </h3>
-
-        {/* Route */}
-        <div className="flex items-center gap-2 text-[var(--on-surface-variant)] text-sm">
-          <FaMapMarkerAlt className="text-[var(--primary)]" />
-          <span className="font-medium">
-            {route?.from || "N/A"} → {route?.to || "N/A"}
-          </span>
+        <h2 className="text-xl font-bold">{ticketTitle}</h2>
+        <div className="flex items-center gap-2 text-sm">
+          <FaMapMarkerAlt />
+          {route?.from} → {route?.to}
         </div>
-
-        {/* Date & Time */}
-        <div className="flex items-center gap-4 text-[var(--on-surface-variant)] text-sm">
-          <div className="flex items-center gap-1.5">
-            <FaCalendarAlt className="text-[var(--primary)]" />
-            <span>{displayDate}</span>
+        <div className="flex gap-4 text-sm">
+          <div className="flex items-center gap-1">
+            <FaCalendarAlt />
+            {schedule?.date}
           </div>
-          <div className="flex items-center gap-1.5">
-            <FaClock className="text-[var(--primary)]" />
-            <span>{displayTime}</span>
+
+          <div className="flex items-center gap-1">
+            <FaClock />
+            {schedule?.time}
           </div>
         </div>
-
-        {/* Booking details: quantity, total price */}
-        <div className="flex items-center justify-between pt-2 border-t border-[var(--outline-variant)]">
+        <div className="flex justify-between border-t pt-3">
           <div>
-            <span className="text-sm text-[var(--on-surface-variant)]">Quantity</span>
-            <p className="text-lg font-bold text-[var(--on-surface)]">{quantity}</p>
+            <p className="text-sm text-gray-400">Quantity</p>
+
+            <h3 className="font-bold text-lg">{quantity}</h3>
           </div>
+
           <div className="text-right">
-            <span className="text-sm text-[var(--on-surface-variant)]">Total</span>
-            <p className="text-lg font-bold text-[var(--primary)]">
+            <p className="text-sm text-gray-400">Total</p>
+
+            <h3 className="text-lg font-bold text-primary">
               ৳{totalPrice.toLocaleString()}
-            </p>
+            </h3>
           </div>
         </div>
-
-        {/* Countdown */}
-        <div className="bg-[var(--surface-container-low)] rounded-xl p-3 border border-[var(--outline-variant)]">
+        <div className="bg-[var(--surface-container-low)] rounded-xl p-3">
           {isExpired ? (
-            <div className="flex items-center gap-2 text-red-400 text-sm font-semibold">
+            <div className="flex items-center gap-2 text-red-400">
               <FaExclamationCircle />
-              <span>Departed</span>
+              Departed
             </div>
           ) : (
-            <div className="flex items-center justify-center gap-2 text-[var(--on-surface)] font-mono text-sm">
-              <div className="text-center">
-                <span className="text-lg font-bold">{String(timeLeft.days).padStart(2, "0")}</span>
-                <span className="text-[10px] text-[var(--on-surface-variant)] block">Days</span>
-              </div>
-              <span className="text-[var(--on-surface-variant)]">:</span>
-              <div className="text-center">
-                <span className="text-lg font-bold">{String(timeLeft.hours).padStart(2, "0")}</span>
-                <span className="text-[10px] text-[var(--on-surface-variant)] block">Hrs</span>
-              </div>
-              <span className="text-[var(--on-surface-variant)]">:</span>
-              <div className="text-center">
-                <span className="text-lg font-bold">{String(timeLeft.minutes).padStart(2, "0")}</span>
-                <span className="text-[10px] text-[var(--on-surface-variant)] block">Min</span>
-              </div>
-              <span className="text-[var(--on-surface-variant)]">:</span>
-              <div className="text-center">
-                <span className="text-lg font-bold">{String(timeLeft.seconds).padStart(2, "0")}</span>
-                <span className="text-[10px] text-[var(--on-surface-variant)] block">Sec</span>
-              </div>
+            <div className="flex justify-center gap-2 font-mono">
+              <div>{String(timeLeft.days).padStart(2, "0")}D</div>
+
+              <div>{String(timeLeft.hours).padStart(2, "0")}H</div>
+
+              <div>{String(timeLeft.minutes).padStart(2, "0")}M</div>
+
+              <div>{String(timeLeft.seconds).padStart(2, "0")}S</div>
             </div>
           )}
-        </div>
-
-        {/* Pay Now button – only if status is "accepted" and not already paid */}
-        {status === "accepted" && paymentStatus !== "paid" && (
+        </div>{" "}
+        {/* Action Buttons */}
+        {status === "pending" && (
           <Button
-            onPress={handlePayNow}
-            className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold py-2.5 rounded-lg"
-            startContent={<FaCreditCard />}
+            isDisabled
+            color="warning"
+            className="w-full font-semibold"
+            startContent={<FaHourglassHalf />}
           >
-            Pay Now
+            Waiting for Vendor Approval
           </Button>
         )}
+        {status === "rejected" && (
+          <Button
+            isDisabled
+            color="danger"
+            className="w-full font-semibold"
+            startContent={<FaTimesCircle />}
+          >
+            Booking Rejected
+          </Button>
+        )}
+        {paymentStatus === "paid" && (
+          <Button
+            isDisabled
+            color="success"
+            className="w-full font-semibold"
+            startContent={<FaCheckCircle />}
+          >
+            Payment Completed
+          </Button>
+        )}
+        {status === "approved" && paymentStatus !== "paid" && !isExpired && (
+          <form action="/api/payment" method="POST">
+            <input type="hidden" name="bookingId" value={_id.toString()} />
 
-     
+            <Button
+              type="submit"
+              startContent={<FaCreditCard />}
+              className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold py-2.5 rounded-lg"
+            >
+              Pay Now
+            </Button>
+          </form>
+        )}
+        {status === "approved" && paymentStatus !== "paid" && isExpired && (
+          <Button
+            isDisabled
+            color="danger"
+            className="w-full font-semibold"
+            startContent={<FaExclamationCircle />}
+          >
+            Journey Already Departed
+          </Button>
+        )}
       </div>
     </Card>
   );
