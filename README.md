@@ -6,8 +6,8 @@ A full-stack MERN ticket marketplace where vendors can sell transport tickets, u
 
 ## 🚀 Live Demo
 
-* **Frontend:** `https://your-frontend-url.vercel.app`
-* **Backend:** `https://your-backend-url.vercel.app`
+* **Frontend:** https://ticket-hub-client-pink.vercel.app/
+
 
 ---
 
@@ -431,28 +431,14 @@ STRIPE_SECRET_KEY=
 
 ---
 
-# 📸 Screenshots
-
-Add screenshots of:
-
-* Home Page
-* All Tickets
-* Ticket Details
-* Booking Page
-* User Dashboard
-* Vendor Dashboard
-* Admin Dashboard
-
----
 
 # 🚀 Future Improvements
 
-* Ticket Search & Filtering
+
 * Email Notifications
 * Booking Invoice
 * PDF Ticket Download
 * Admin Analytics Dashboard
-* Vendor Sales Charts
 * Wishlist
 * Reviews & Ratings
 
