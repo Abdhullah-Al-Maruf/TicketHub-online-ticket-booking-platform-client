@@ -4,24 +4,30 @@ import { authClient } from "@/lib/auth-client";
 import { Button, Input, Label } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import Link from "next/link";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { Suspense, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 
-export default function SignInPage() {
+function SignInForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl");
+
   const [isVisible, setIsVisible] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // Helper function to redirect based on role from session
+  // Redirect to the page user originally tried to visit, or fall back to role dashboard
   const redirectToDashboard = async () => {
-    // Fetch the session to get the user role
+    if (callbackUrl) {
+      router.push(callbackUrl);
+      return;
+    }
+
     const { data: sessionData } = await authClient.getSession();
     const userRole = sessionData?.user?.role;
-
-    router.push(`/dashboard/${userRole}`)
+    router.push(`/dashboard/${userRole}`);
   };
 
   const onSubmit = async (event) => {
@@ -43,7 +49,6 @@ export default function SignInPage() {
         autoClose: 2000,
       });
 
-      // Redirect based on role from session
       await redirectToDashboard();
     } catch (err) {
       console.error(err);
@@ -60,7 +65,7 @@ export default function SignInPage() {
     try {
       await authClient.signIn.social({
         provider: "google",
-        callbackURL: "/", // Will be handled by middleware
+        callbackURL: callbackUrl || "/",
       });
     } catch (error) {
       console.error("Google Auth Error:", error);
@@ -91,7 +96,6 @@ export default function SignInPage() {
         autoClose: 2000,
       });
 
-      // Redirect based on role from session
       await redirectToDashboard();
     } catch (err) {
       console.error(err);
@@ -109,7 +113,7 @@ export default function SignInPage() {
       <div className="w-full  max-w-[580px]">
         {/* Main Form Card */}
         <div className="bg-[var(--surface-container)] border border-[var(--outline-variant)] rounded-xl p-8 sm:p-10 shadow-2xl shadow-black/50">
-          
+
           {/* Header Section */}
           <div className="text-center mb-8">
             <h1 className="text-[var(--primary)] text-2xl font-bold mb-2">Welcome back</h1>
@@ -120,7 +124,7 @@ export default function SignInPage() {
 
           {/* Form */}
           <form onSubmit={onSubmit} className="space-y-5">
-            
+
             {/* Email Field */}
             <div className="space-y-1.5">
               <Label className="text-[var(--on-surface)] font-medium text-sm">
@@ -142,8 +146,8 @@ export default function SignInPage() {
                 <Label className="text-[var(--on-surface)] font-medium text-sm">
                   Password
                 </Label>
-                <Link 
-                  href="/forgot-password" 
+                <Link
+                  href="/forgot-password"
                   className="text-sm text-[var(--primary)] hover:text-[var(--tertiary)] transition-colors"
                 >
                   Forgot?
@@ -207,7 +211,7 @@ export default function SignInPage() {
                 Demo Accounts
               </span>
             </div>
-            
+
             <div className="grid grid-cols-2 gap-3">
               <button
                 type="button"
@@ -217,7 +221,7 @@ export default function SignInPage() {
               >
                 Demo Vendor
               </button>
-              
+
               <button
                 type="button"
                 onClick={() => handleDemoLogin("admin20053@gmail.com", "Admin20053@gmail.com")}
@@ -244,5 +248,13 @@ export default function SignInPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function SignInPage() {
+  return (
+    <Suspense fallback={null}>
+      <SignInForm />
+    </Suspense>
   );
 }

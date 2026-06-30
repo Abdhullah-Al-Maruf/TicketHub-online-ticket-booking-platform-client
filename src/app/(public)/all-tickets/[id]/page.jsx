@@ -14,7 +14,7 @@ import { getTicketById } from "@/lib/api/tickets";
 
 export default async function TicketDetailsPage({ params }) {
   const { id } = await params;
-  console.log(id);
+
 
   let ticket = null;
   try {
