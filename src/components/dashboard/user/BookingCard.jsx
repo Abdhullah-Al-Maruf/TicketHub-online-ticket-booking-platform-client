@@ -17,6 +17,7 @@ import {
   FaShip,
   FaPlane,
 } from "react-icons/fa";
+import { CiNoWaitingSign } from "react-icons/ci";
 
 export default function BookingCard({ booking }) {
   const {
@@ -223,19 +224,18 @@ export default function BookingCard({ booking }) {
         {status === "pending" && (
           <Button
             isDisabled
-            color="warning"
-            className="w-full font-semibold"
-            startContent={<FaHourglassHalf />}
+            className="w-full  bg-yellow-500/20 text-yellow-400 border border-amber-100 font-semibold"
+         
           >
-            Waiting for Vendor Approval
+         <CiNoWaitingSign/> Waiting for Vendor Approval
           </Button>
         )}
         {status === "rejected" && (
           <Button
             isDisabled
-            color="danger"
+             variant="danger"
             className="w-full font-semibold"
-            startContent={<FaTimesCircle />}
+        
           >
             Booking Rejected
           </Button>
@@ -243,11 +243,11 @@ export default function BookingCard({ booking }) {
         {paymentStatus === "paid" && (
           <Button
             isDisabled
-            color="success"
-            className="w-full font-semibold"
-            startContent={<FaCheckCircle />}
+         
+            className="w-full  bg-green-600 text-white font-semibold"
+     
           >
-            Payment Completed
+          <FaCheckCircle />  Payment Completed
           </Button>
         )}
         {status === "approved" && paymentStatus !== "paid" && !isExpired && (

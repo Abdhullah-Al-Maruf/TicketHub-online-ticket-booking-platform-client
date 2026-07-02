@@ -2,7 +2,7 @@
 
 import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Button } from "@heroui/react";
+import { Button, Spinner } from "@heroui/react";
 import { FaMinus, FaPlus, FaArrowLeft, FaTicketAlt } from "react-icons/fa";
 import { TbCoinTaka } from "react-icons/tb";
 import toast from "react-hot-toast";
@@ -74,8 +74,8 @@ function BookingContent() {
         ticketTitle: title,
         pricePerSeat: price,
         quantity,
-        image,
-        transportType,
+        image: image,
+        transportType: transportType,
         totalPrice,
         route: { from, to },
         schedule: { date, time },
@@ -88,6 +88,7 @@ function BookingContent() {
           email: session.user.email,
         },
       };
+      console.log(payload);
       const data = await addBooking(payload);
       if (data.success) {
         toast.success("Booking request submitted successfully!");
@@ -216,7 +217,7 @@ export default function BookingPage() {
     <Suspense
       fallback={
         <div className="min-h-screen bg-gray-50 dark:bg-[#1C1C1E] flex items-center justify-center text-gray-700 dark:text-white">
-          Loading...
+          <Spinner className="w-12 h-12 text-purple-600 dark:text-purple-400" />
         </div>
       }
     >
